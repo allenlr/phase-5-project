@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_type: one
+  business_name: MyString
+  description: MyText
+  longitude: 9.99
+  latitude: 9.99
+  location: MyString
+
+two:
+  service_type: two
+  business_name: MyString
+  description: MyText
+  longitude: 9.99
+  latitude: 9.99
+  location: MyString
