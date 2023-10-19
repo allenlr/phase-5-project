@@ -12,9 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2023_10_18_193856) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "reviews", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "service_provider_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "service_provider_id", null: false
     t.integer "rating"
     t.text "comment"
     t.datetime "created_at", precision: 6, null: false
@@ -24,7 +27,7 @@ ActiveRecord::Schema.define(version: 2023_10_18_193856) do
   end
 
   create_table "service_providers", force: :cascade do |t|
-    t.integer "service_type_id", null: false
+    t.bigint "service_type_id", null: false
     t.string "business_name"
     t.text "description"
     t.decimal "longitude"
@@ -43,8 +46,8 @@ ActiveRecord::Schema.define(version: 2023_10_18_193856) do
   end
 
   create_table "user_service_providers", force: :cascade do |t|
-    t.integer "service_provider_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "service_provider_id", null: false
+    t.bigint "user_id", null: false
     t.date "date_hired"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
