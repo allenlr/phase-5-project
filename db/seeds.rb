@@ -25,6 +25,15 @@ ActiveRecord::Base.connection.reset_pk_sequence!('users')
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+>>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
 service_types = [
     'Home Services',
     'Health & Wellness',
@@ -45,6 +54,7 @@ denver_zip_codes = [
 
 denver_zip_codes_data = {
   80202 => { latitude: 39.7515, longitude: -104.9968 },
+<<<<<<< HEAD
   80903 => { latitude: 38.8339, longitude: -104.8214 },
   80301 => { latitude: 40.0150, longitude: -105.0021 },
   80521 => { latitude: 40.5853, longitude: -105.0844 },
@@ -57,6 +67,19 @@ denver_zip_codes_data = {
 }
 
 
+=======
+  80203 => { latitude: 39.7314, longitude: -104.9830 },
+  80204 => { latitude: 39.7365, longitude: -105.0021 },
+  80205 => { latitude: 39.7594, longitude: -104.9688 },
+  80206 => { latitude: 39.7231, longitude: -104.9562 },
+  80209 => { latitude: 39.7059, longitude: -104.9663 },
+  80210 => { latitude: 39.6766, longitude: -104.9647 },
+  80211 => { latitude: 39.7675, longitude: -105.0033 },
+  80212 => { latitude: 39.7736, longitude: -105.0482 },
+  80218 => { latitude: 39.7442, longitude: -104.9708 }
+}
+
+>>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
 10.times do |i|
     zipcode = denver_zip_codes[i % denver_zip_codes.size]
     username = ""
@@ -74,7 +97,11 @@ end
 service_types.each do |type|
     ServiceType.create!(
         name: type,
+<<<<<<< HEAD
         description: Faker::Company.catch_phrase
+=======
+        description: Faker::Lorem.paragraph
+>>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
     )
 end
 
@@ -85,7 +112,11 @@ denver_zip_codes_data.each do |zipcode, coordinates|
     ServiceProvider.create!(
       service_type_id: service_type_ids.sample,
       business_name: Faker::Company.name,
+<<<<<<< HEAD
       description: Faker::Company.catch_phrase,
+=======
+      description: Faker::Lorem.paragraph,
+>>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
       longitude: coordinates[:longitude],
       latitude: coordinates[:latitude],
       location: zipcode.to_s
@@ -98,6 +129,7 @@ service_provider_ids = ServiceProvider.pluck(:id)
 
 user_ids.each do |user_id|
     2.times do 
+<<<<<<< HEAD
       time_hired = Time.now.beginning_of_day + rand(9..16).hours + rand(0..59).minutes
 
         UserServiceProvider.create!(
@@ -105,12 +137,22 @@ user_ids.each do |user_id|
             service_provider_id: service_provider_ids.sample,
             date_hired: Faker::Date.between(from: '2020-01-01', to: Date.today),
             time_hired: time_hired.strftime("%H:%M")
+=======
+        UserServiceProvider.create!(
+            user_id: user_id,
+            service_provider_id: service_provider_ids.sample,
+            date_hired: Faker::Date.between(from: '2020-01-01', to: Date.today)
+>>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
         )
     end
 end
 
 User.all.each do |user|
+<<<<<<< HEAD
     rand(2..7).times do
+=======
+    rand(1..3).times do
+>>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
         Review.create!(
             user_id: user.id,
             service_provider_id: service_provider_ids.sample,

@@ -15,6 +15,9 @@ ActiveRecord::Schema.define(version: 2023_12_04_072459) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "reviews", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "service_provider_id", null: false
