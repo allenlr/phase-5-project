@@ -1,0 +1,2 @@
+class UserServiceProvidersController < ApplicationController
+end
