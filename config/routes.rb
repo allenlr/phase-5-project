@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :user_service_providers, only: [:create, :index, :show, :destroy]
   end
 
-  resources service_providers do
+  resources :service_providers do
     resources :user_service_providers, only: [:create, :index, :show, :destroy]
   end
 end
