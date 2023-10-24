@@ -6,6 +6,7 @@ import Home from './components/Home';
 import NotFound from './components/NotFound';
 import Account from './components/User/Account';
 import Services from './components/Services';
+import Login from './components/User/Login';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/account" element={<Account />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
