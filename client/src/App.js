@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
+import Account from './components/Account';
+import Services from './components/Services';
 
 function App() {
   return (
