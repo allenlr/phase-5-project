@@ -22,7 +22,15 @@ function Login(){
 
     function handleFormSubmit(e) {
         e.preventDefault()
-        
+        fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password })
+        })
+            .then((r) => r.json())
+            .then((data) => console.log(data))
     }
 
     return(
