@@ -20,6 +20,7 @@ function Login(){
                 username:
                 <input
                     style={{marginLeft: "5px"}}
+                    name="username"
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)} 
@@ -28,6 +29,7 @@ function Login(){
                 password:
                 <input 
                     style={{marginLeft: "7px"}}
+                    name="password"
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
