@@ -20,9 +20,16 @@ function Login(){
         })
     }
 
+    function handleFormSubmit(e) {
+        e.preventDefault()
+        
+    }
+
     return(
         <div className="login-div">
-            Login
+            <h1 id="login-header">
+                Login
+            </h1>
             <br />
             <br />
             <form className="login-form">
