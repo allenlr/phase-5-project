@@ -6,10 +6,19 @@ import { loginRequest, loginSuccess, loginFailure, logout } from './userSlice'
 function Login(){
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user.currentUser);
-
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [loginForm, setLoginForm] = useState({
+        username: '',
+        password: '',
+    })
+
+    function handleFormChange(e) {
+        const keyName = e.target.name
+        setLoginForm({
+            ...loginForm, 
+            [keyName]: e.target.value
+        })
+    }
 
     return(
         <div className="login-div">
@@ -22,8 +31,8 @@ function Login(){
                     style={{marginLeft: "5px"}}
                     name="username"
                     type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)} 
+                    value={loginForm.username}
+                    onChange={handleFormChange} 
                 />
                 <br/>
                 password:
@@ -31,8 +40,8 @@ function Login(){
                     style={{marginLeft: "7px"}}
                     name="password"
                     type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={loginForm.password}
+                    onChange={handleFormChange}
                 />
                 <button 
                     style={{fontSize: "10px", marginLeft:"5px"}} 
