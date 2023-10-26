@@ -9,3 +9,11 @@
 #login-header{
     color: #10eee3;
 }
+
+#login-button{
+    margin-left: 120px;
+}
+
+#error-handle{
+    color: red
+}

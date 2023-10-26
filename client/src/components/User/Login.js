@@ -11,6 +11,7 @@ function Login(){
         username: '',
         password: '',
     })
+    const [error, setError] = useState(null)
 
     function handleFormChange(e) {
         const keyName = e.target.name
@@ -20,17 +21,29 @@ function Login(){
         })
     }
 
-    function handleFormSubmit(e) {
+    function handleLogin(e) {
         e.preventDefault()
         fetch("/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ loginForm })
         })
-            .then((r) => r.json())
-            .then((data) => console.log(data))
+            .then((r) => {
+                if (r.ok){
+                    setError(null)
+                    return r.json()
+                } else {
+                    return r.json().then((data) => {
+                        throw new Error(data.error || 'Login Failed')
+                    })
+                }
+            })
+            .catch((error) => {
+                setError(error)
+                console.log(`error: ${error.message}`)
+            })
     }
 
     return(
@@ -40,7 +53,8 @@ function Login(){
             </h1>
             <br />
             <br />
-            <form className="login-form">
+            <span id="error-handle">{error ? error.message : null}</span>
+            <form className="login-form" onSubmit={handleLogin}>
                 username:
                 <input
                     style={{marginLeft: "5px"}}
@@ -65,6 +79,9 @@ function Login(){
                 >
                     {showPassword ? "🚫👁️" : "👁️"}
                 </button>
+                <br/>
+                <br/>
+                <button type="submit" id="login-button">Login</button>
             </form>
 
         </div>
