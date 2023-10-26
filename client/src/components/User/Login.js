@@ -23,16 +23,18 @@ function Login(){
 
     function handleLogin(e) {
         e.preventDefault()
+
+        dispatch(loginRequest());
+
         fetch("/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ loginForm })
+            body: JSON.stringify(loginForm)
         })
             .then((r) => {
                 if (r.ok){
-                    setError(null)
                     return r.json()
                 } else {
                     return r.json().then((data) => {
@@ -40,11 +42,18 @@ function Login(){
                     })
                 }
             })
+            .then((userData) => {
+                dispatch(loginSuccess(userData));
+                setError(null)
+            })
             .catch((error) => {
+                dispatch(loginFailure(error.message))
                 setError(error)
                 console.log(`error: ${error.message}`)
             })
     }
+
+    console.log(currentUser)
 
     return(
         <div className="login-div">
