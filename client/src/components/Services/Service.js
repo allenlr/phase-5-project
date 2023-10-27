@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Services(){
+function Service(){
     return(
         <div>
 
@@ -8,4 +8,5 @@ function Services(){
     )
 }
 
-export default Services;
+
+export default Service;
