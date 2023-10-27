@@ -10,13 +10,13 @@ const serviceTypesSlice = createSlice({
     name: 'services',
     initialState,
     reducers: {
-        services: (state) => {
+        services: (state, action) => {
             state.services = action.payload;
         },
-        addService: (state) => {
+        addService: (state, action) => {
             state.services = [...state.services, action.payload]
         },
-        removeService: (state) => {
+        removeService: (state, action) => {
             state.services = state.services.filter((service) => service.id !== action.payload)
         }
     },

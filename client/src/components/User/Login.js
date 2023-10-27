@@ -1,7 +1,7 @@
 import "./User.css"
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { loginRequest, loginSuccess, loginFailure, logout } from './userSlice'
+import { loginRequest, loginSuccess, loginFailure } from './userSlice'
 
 function Login(){
     const dispatch = useDispatch();
