@@ -1,9 +1,9 @@
 import './Services.css'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getServices, addService, removeService } from './serviceTypesSlice'
+import { getServices, setSelectedServiceType, addService, removeService } from './serviceTypesSlice'
 import { Link } from 'react-router-dom';
-import Service from './Service';
+
 
 function ServiceTypes(){
     const dispatch = useDispatch();
@@ -13,21 +13,25 @@ function ServiceTypes(){
     useEffect(() => {
         fetch('/service_types')
         .then((r) => r.json())
-        .then((servicesData) => {
-            dispatch(getServices(servicesData))
+        .then((serviceTypesData) => {
+            dispatch(getServices(serviceTypesData))
         })
     }, [dispatch])
 
+    function handleServiceTypeSelect(type){
+        dispatch(setSelectedServiceType(type))
+    }
+
     return(
         <div className="services-container">
-            {serviceTypes.map((service) => {
+            {serviceTypes.map((type) => {
                 return (
-                    <div key={service.id}>
-                        <h3 className='service-names'>
-                            {service.name}
-                        </h3>
+                    <div key={type.id}>
+                        <Link to="/service_providers" className='service-names' onClick={handleServiceTypeSelect(type)}>
+                            {type.name}
+                        </Link>
                         <p className='service-descriptions'>
-                            {service.description}
+                            {type.description}
                         </p>
                     </div>
                 )

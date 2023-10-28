@@ -13,8 +13,8 @@ Rails.application.routes.draw do
     resources :user_service_providers, only: [:create, :index, :show, :destroy]
   end
 
-  resources :service_providers do
-    resources :user_service_providers, only: [:create, :index, :show, :destroy]
+  resources :service_providers, only: [:index, :show] do
+    resources :reviews, only: [:index]
   end
 
   post "/login", to: "sessions#create"
