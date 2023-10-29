@@ -6,22 +6,25 @@ function ServiceProviders({serviceType}){
     const dispatch = useDispatch()
     const serviceProviders = useSelector(state => state.serviceProviders.providers)
 
-    // console.log({services})
+    useEffect(() => {
+        const serviceProviders = serviceType.service_providers.filter((provider) => provider.service_type_id === serviceType.id)
+        dispatch(setServiceProviders(serviceProviders))
+    }, [])
 
-    // useEffect(() => {
-    //     fetch('/service_providers')
-    //         .then((r) => r.json())
-    //         .then((data) => dispatch(setServiceProviders(data)))
-    // }, [dispatch])
-
-    // useEffect(() => {
-    //     const serviceProviders = serviceType.service_providers.filter((provider) => provider.service_type_id === serviceType.id)
-    //     dispatch(setServiceProviders(serviceProviders))
-    // }, [])
-
-    console.log(serviceType)
     return (
-        <div>
+        <div className="providers-container">
+            {serviceProviders.map((provider) => {
+                return (
+                    <div key={provider.id}>
+                        <h3 className='provider-names' >
+                            {provider.business_name}
+                        </h3>
+                        <p className='provider-descriptions'>
+                            {provider.description}
+                        </p>
+                    </div>
+                )
+            })}
 
         </div>
     )
