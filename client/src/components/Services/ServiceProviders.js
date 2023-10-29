@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setServiceProviders } from './serviceProvidersSlice'
+import { setServiceProviders, setSelectedProvider } from './serviceProvidersSlice'
 
 function ServiceProviders({serviceType}){
     const dispatch = useDispatch()
@@ -10,6 +10,8 @@ function ServiceProviders({serviceType}){
         const serviceProviders = serviceType.service_providers.filter((provider) => provider.service_type_id === serviceType.id)
         dispatch(setServiceProviders(serviceProviders))
     }, [])
+
+    console.log(serviceProviders[0])
 
     return (
         <div className="providers-container">

@@ -33,6 +33,7 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  background-color: #006674
 }
 
 .navbar-nav {

@@ -2,6 +2,7 @@ import {createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     providers: [],
+    selectedProvider: [],
     loading: false,
     error: null,
 };
@@ -12,10 +13,13 @@ const serviceProvidersSlice = createSlice({
     reducers: {
         setServiceProviders: (state, action) => {
             state.providers = action.payload;
-        }
+        },
+        setSelectedProvider: (state, action) => {
+            state.providers = action.payload;
+        },
     },
 });
 
-export const { setServiceProviders } = serviceProvidersSlice.actions;
+export const { setServiceProviders, setSelectedProvider } = serviceProvidersSlice.actions;
 
 export default serviceProvidersSlice.reducer;

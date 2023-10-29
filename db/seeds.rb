@@ -25,12 +25,6 @@ ActiveRecord::Base.connection.reset_pk_sequence!('users')
 
 
 
-
-
-
-
-
-
 service_types = [
     'Home Services',
     'Health & Wellness',

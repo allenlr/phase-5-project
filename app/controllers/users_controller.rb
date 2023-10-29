@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :authorize, except: [:create, :index]
+    before_action :authorize, except: [:create, :index, :show]
 
     def index
         users = User.all
@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     end
 
     def show
-        user = User.find(id: params[:id])
+        user = User.find_by(id: params[:id])
         render json: user, status: :ok
     end
 
