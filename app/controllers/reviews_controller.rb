@@ -2,6 +2,7 @@ class ReviewsController < ApplicationController
     before_action :set_reviewable
 
     def index
+        byebug
         reviews = @reviewable.reviews
         render json: reviews, status: :ok
     end

@@ -57,3 +57,39 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+.comment-container{
+    display: flex;
+    padding: 10px;
+    border: 1px solid #e1e1e1;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    flex-direction: column;
+}
+
+.provider-reviews-header{
+}
+
+.review-user {
+    margin-bottom: 1px;
+    font-weight: bold;
+}
+
+.comment-header{
+    display: flex;
+    justify-content: left;
+    width: 100%;
+}
+
+.comment-timestamp{
+    color: #777;
+    font-size: 0.8rem;
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+.comment-text{
+    font-size: 0.9rem;
+    margin-top: 10px;
+    align-items: start;
+}

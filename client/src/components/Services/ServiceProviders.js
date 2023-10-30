@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setServiceProviders, setSelectedProvider } from './serviceProvidersSlice'
+import ServiceProvider from './ServiceProvider'
 
 function ServiceProviders({serviceType}){
     const dispatch = useDispatch()
@@ -19,14 +20,7 @@ function ServiceProviders({serviceType}){
         <div className="providers-container">
             {serviceProviders.map((provider) => {
                 return (
-                    <div key={provider.id}>
-                        <h3 className='provider-names' >
-                            {provider.business_name}
-                        </h3>
-                        <p className='provider-descriptions'>
-                            {provider.description}
-                        </p>
-                    </div>
+                    <ServiceProvider provider={provider} />
                 )
             })}
 
