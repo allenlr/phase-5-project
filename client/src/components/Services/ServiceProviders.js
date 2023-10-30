@@ -6,12 +6,14 @@ function ServiceProviders({serviceType}){
     const dispatch = useDispatch()
     const serviceProviders = useSelector(state => state.serviceProviders.providers)
 
+    // console.log(serviceType)
+
     useEffect(() => {
-        const serviceProviders = serviceType.service_providers.filter((provider) => provider.service_type_id === serviceType.id)
+        const serviceProviders = serviceType.service_providers
         dispatch(setServiceProviders(serviceProviders))
     }, [])
 
-    console.log(serviceProviders[0])
+    console.log(serviceType)
 
     return (
         <div className="providers-container">

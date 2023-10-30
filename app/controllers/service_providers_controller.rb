@@ -2,7 +2,7 @@ class ServiceProvidersController < ApplicationController
 
     def index
         service_providers = ServiceProvider.all
-        render json: service_providers, status: :ok
+        render json: service_providers, include: ['reviews'], status: :ok
     end
 
     def show

@@ -2,7 +2,7 @@ class ServiceTypesController < ApplicationController
 
     def index
         service_types = ServiceType.all
-        render json: service_types, status: :ok
+        render json: service_types, include: ['service_providers', 'service_providers.reviews'], status: :ok
     end
 
     def show
