@@ -18,7 +18,7 @@ function ServiceProvider({provider}){
             </p>
             {showDetails && (
                 <div>
-                    <h4 className="provider-reviews-header">Reviews</h4>
+                    <h4 className="provider-reviews-header">{`Reviews (${provider.reviews.length})`}</h4>
                     {provider.reviews.map((review) => {
                         return (
                             <div key={review.id} className="comment-container">
