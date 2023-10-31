@@ -25,6 +25,13 @@ body {
   margin-right: 10px;
 }
 
+.nav-buttons{
+  color: #fff;
+  text-decoration: none;
+  text-align: right;
+  margin-right: 10px;
+}
+
 .nav-link:hover {
   color: #facc37;
 }
@@ -68,6 +75,6 @@ body {
   color: #fff;
 }
 
-#logout-button:hover {
+.nav-buttons:hover {
   color: #00e1ff;
 }

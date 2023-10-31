@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from './User/userSlice'
+import Account from './User/Account';
 
 function Navbar(){
     const currentUser = useSelector(state => state.user.currentUser);
@@ -35,10 +36,8 @@ function Navbar(){
             </Link>
             {currentUser ? 
                 <div className="navbar-actions">
-                    <Link to="/account" className="nav-link">
-                        Account
-                    </Link>
-                    <button id="logout-button" onClick={handleLogout}>Logout</button>
+                    <Account className="nav-buttons"/>
+                    
                 </div>
                 :
                 <Link to="/login" className="nav-link">

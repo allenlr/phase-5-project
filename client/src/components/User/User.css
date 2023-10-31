@@ -17,3 +17,39 @@
 #error-handle{
     color: red
 }
+
+
+button.nav-link {
+    background: none;
+    border: none;      
+    padding: 0;        
+    cursor: pointer;
+    font-size: 15px;
+    
+
+}
+
+button.nav-link:hover {
+    color: #facc37;
+}
+
+.account-dropdown ul {
+    margin: 10;
+    padding: 0;
+}
+
+.account-dropdown li {
+    padding: 8px 16px;
+    list-style-type: none;
+}
+
+.account-dropdown li a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    font-size: 12px;
+}
+
+.account-dropdown li a:hover{
+    color: #facc37
+}
