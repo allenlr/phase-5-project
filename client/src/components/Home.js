@@ -1,9 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 function Home(){
+    const currentUser = useSelector(state => state.user.currentUser);
+
     return(
         <div className="home">
-            Welcome to Servyces!
+            {currentUser === null ? `Welcome to Servyces!` : `Welcome, to Servyces, ${currentUser.username}!`}
         </div>
     )
 }
