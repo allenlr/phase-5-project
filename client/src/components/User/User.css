@@ -53,3 +53,31 @@ button.nav-link:hover {
 .account-dropdown li a:hover{
     color: #facc37
 }
+
+.profile-container{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.input-group label{
+    width: 54.5%; 
+    margin-bottom: 5px;
+    text-align: right;
+    margin-right: 10px;
+    padding-right: 10px;
+    
+}
+
+.input-group input {
+    width: 16%;
+    margin-left: 5px;
+}

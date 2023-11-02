@@ -1,5 +1,6 @@
 import "./User.css"
 import React, { useState, useRef, useEffect} from 'react'
+import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logout } from './userSlice'
@@ -47,9 +48,9 @@ function Account(){
             {isOpen && (
                 <div className="account-dropdown">
                     <ul className='dropdown-links'>
-                        <li className='dropdown-links'><a href="/profile">Profile</a></li>
+                        <li className='dropdown-links'><Link to="/profile">Profile</Link></li>
                         <li className='dropdown-links'><a href="/settings">Settings</a></li>
-                        <li className='dropdown-links'><a href="/logout" onClick={handleLogout}>Logout</a></li>
+                        <li className='dropdown-links'><a href="/" onClick={handleLogout}>Logout</a></li>
                     </ul>
                 </div>
             )}

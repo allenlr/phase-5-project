@@ -9,6 +9,7 @@ import Account from './components/User/Account';
 import ServiceTypes from './components/Services/ServiceTypes';
 import Login from './components/User/Login';
 import ServiceProviders from './components/Services/ServiceProviders';
+import Profile from './components/User/Profile';
 
 function App() {
   const selectedServiceType = useSelector(state => state.serviceTypes.selectedServiceType)
@@ -22,6 +23,7 @@ function App() {
         <Route path="/services" element={<ServiceTypes />} />
         <Route path="/login" element={<Login />} />
         <Route path="/service_providers" element={<ServiceProviders serviceType={selectedServiceType}/>} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
