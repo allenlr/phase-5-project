@@ -44,12 +44,12 @@
     margin-top: 10px;
     /* margin-bottom: 5px; */
     font-size: 20px;
-    color: #ffffff;
+    color: #006674;
     font-weight: bold;
 }
 
 .provider-descriptions{
-    color: #006674;
+    color: #ffffff;
     line-height: 1.0;
 }
 
@@ -68,12 +68,12 @@
 }
 
 .provider-reviews-header{
-    color: #8d8d8d;
+    color: #c5c5c5;
 }
 
 .review-user {
     font-weight: bold;
-    color: #ffffff;
+    color: #006674;
 }
 
 .comment-header{
@@ -92,5 +92,5 @@
 .comment-text{
     font-size: 0.9rem;
     align-items: start;
-    color: #006674;
+    color: #ffffff;
 }
