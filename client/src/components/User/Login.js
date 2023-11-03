@@ -67,7 +67,7 @@ function Login(){
             <br />
             <span id="error-handle">{error ? error.message : null}</span>
             <form className="login-form" onSubmit={handleLogin}>
-                username:
+                Username:
                 <input
                     style={{marginLeft: "5px"}}
                     name="username"
@@ -76,9 +76,9 @@ function Login(){
                     onChange={handleFormChange} 
                 />
                 <br/>
-                password:
+                Password:
                 <input 
-                    style={{marginLeft: "7px"}}
+                    style={{marginLeft: "10px"}}
                     name="password"
                     type={showPassword ? "text" : "password"}
                     value={loginForm.password}

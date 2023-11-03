@@ -5,7 +5,7 @@
     max-width: 1000px;
     margin: 20px auto;
     padding: 10px;
-    background: #193741;
+    background: #1a1a1a;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -14,7 +14,7 @@
     margin-top: 10px;
     margin-bottom: 5px;
     font-size: 20px;
-    color: #facc37;
+    color: #006674;
     font-weight: bold;
 }
 
@@ -35,7 +35,7 @@
     max-width: 1000px;
     margin: 20px auto;
     padding: 10px;
-    background: #ffffffb4;
+    background: #1f1f1fb4;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -44,12 +44,12 @@
     margin-top: 10px;
     /* margin-bottom: 5px; */
     font-size: 20px;
-    color: #000000c0;
+    color: #ffffff;
     font-weight: bold;
 }
 
 .provider-descriptions{
-    color: #193741;
+    color: #006674;
     line-height: 1.0;
 }
 
@@ -68,12 +68,12 @@
 }
 
 .provider-reviews-header{
-    color: #0d1b20;
+    color: #8d8d8d;
 }
 
 .review-user {
     font-weight: bold;
-    color: #193741;
+    color: #ffffff;
 }
 
 .comment-header{
@@ -83,7 +83,7 @@
 }
 
 .comment-timestamp{
-    color: #5f5f5f;
+    color: #8d8d8d;
     font-size: 0.8rem;
     margin-left: 5px;
     margin-top: 3px;
@@ -92,5 +92,5 @@
 .comment-text{
     font-size: 0.9rem;
     align-items: start;
-    color: #193741;
+    color: #006674;
 }

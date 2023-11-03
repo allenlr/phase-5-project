@@ -6,7 +6,7 @@ function Home(){
 
     return(
         <div className="home">
-            {currentUser === null ? `Welcome to Servyces!` : `Welcome, to Servyces, ${currentUser.username}!`}
+            {currentUser === null ? `Welcome to Servyces!` : `Welcome to Servyces, ${currentUser.username}!`}
         </div>
     )
 }
