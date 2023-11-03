@@ -5,12 +5,14 @@ function Profile(){
     const [editUser, setEditUser] = useState(false)
     const currentUser = useSelector(state => state.user.currentUser)
 
+    console.log(currentUser)
     return (
         <div className="profile-div">
-            <div className="menu-description">
-                <h2>Profile Information</h2>
-                <p>Change User Info</p>
-            </div>
+            <div className="profile-information-div">
+                <div className="menu-description">
+                    <h2>Profile Information</h2>
+                    <p>Change User Info</p>
+                </div>
                 <div>
                     <form id="edit-user-form">
                         <div className="profile-container">
@@ -37,6 +39,33 @@ function Profile(){
                         <button id="save-changes-button">Save</button>
                     </form>
                 </div>
+            </div>
+            <div className="profile-reviews-div">
+                <div className="menu-description">
+                    <h2>User Reviews</h2>
+                    <p>View and Edit Reviews</p>
+                </div>
+                <div>
+                    <div className="profile-reviews-container">
+                        <div className="profile-container">
+                            {currentUser.reviews.map((review) => {
+                                return (
+                                    <div key={review.id} className="profile-review">
+                                        <div className="comment-header">
+                                            <span >{review.provider} Review</span>
+                                            <span className="comment-timestamp">{review.date}</span>
+                                        </div>
+                                        <div className="comment-text">
+                                            <p>{review.comment}</p>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
