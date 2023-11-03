@@ -43,7 +43,7 @@ function Account(){
     }
 
     return(
-        <div ref={dropdownRef}>
+        <div className="dropdown-container" ref={dropdownRef}>
             <button className="nav-link" onClick={toggleDropdown}>Account</button>
             {isOpen && (
                 <div className="account-dropdown">
