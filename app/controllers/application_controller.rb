@@ -15,6 +15,7 @@ class ApplicationController < ActionController::API
     private
     
     def authorize
+        Rails.logger.info "Session Data: #{session.inspect}"
         return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
     end
 

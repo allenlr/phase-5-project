@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux/es/hooks/useSelector';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginSuccess } from './userSlice';
 
 function Profile(){
-    const [editUser, setEditUser] = useState(false)
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user.currentUser)
+    const [showPassword, setShowPassword] = useState(false);
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [error, setError] = useState(null);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [userForm, setUserForm] = useState({
         username: currentUser.username,
         email: currentUser.email,
-        currentPassword: currentUser.password,
+        currentPassword: "",
         password: ""
     })
 
@@ -52,7 +55,11 @@ function Profile(){
                 return res.json();
             })
             .then(data => {
-                setCurrentUser(data);
+                dispatch(loginSuccess(data))
+                setShowSuccessMessage(true)
+            })
+            .catch(error => {
+                setError(error.message)
             })
 
     }
@@ -66,7 +73,9 @@ function Profile(){
                     <p>Change User Info</p>
                 </div>
                 <div>
-                    <form id="edit-user-form">
+                    {showSuccessMessage && <div style={{ color: 'green' }}>Changes Saved</div>}
+                    {error && <div style={{ color: 'red' }}>Error: {error}</div>}
+                    <form id="edit-user-form" onSubmit={handleUserChangesSubmit}>
                         <div className="profile-container">
                             <div className="input-group" id="first-group">
                                 <label>
@@ -84,13 +93,27 @@ function Profile(){
                                 <label>
                                     Current Password
                                 </label>
-                                <input type="password" name="currentPassword" value={userForm.currentPassword} onChange={(e) => handleFormChanges(e)}></input>  
+                                <input type={showCurrentPassword ? "text" : "password"} name="currentPassword" value={userForm.currentPassword} onChange={(e) => handleFormChanges(e)}></input>
+                                <button 
+                                    style={{fontSize: "10px", marginLeft:"5px"}} 
+                                    type="button"
+                                    onClick={() => setShowCurrentPassword((prev) => !prev)}
+                                >
+                                    {showPassword ? "🚫👁️" : "👁️"}
+                                </button>  
                             </div>
                             <div className="input-group" id="last-group">
                                 <label>
                                     New Password
                                 </label>
-                                <input type="password" name="newPassword" value={userForm.password} onChange={(e) => handleFormChanges(e)}></input>  
+                                <input type={showPassword ? "text" : "password"} name="password" value={userForm.password} onChange={(e) => handleFormChanges(e)}></input>
+                                <button 
+                                    style={{fontSize: "10px", marginLeft:"5px"}} 
+                                    type="button"
+                                    onClick={() => setShowPassword((prev) => !prev)}
+                                >
+                                    {showPassword ? "🚫👁️" : "👁️"}
+                                </button>
                             </div>
                         </div>
                         <button type="submit" id="save-changes-button">Save</button>

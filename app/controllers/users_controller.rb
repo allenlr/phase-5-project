@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :authorize, except: [:create, :index, :show]
+    before_action :authorize, except: [:create, :index]
 
     def index
         users = User.all
@@ -21,12 +21,15 @@ class UsersController < ApplicationController
     end
 
     def update
+        byebug
+        user = User.find_by(id: session[:user_id])
+
         unless user_params[:currentPassword].present?
             render json: { error: "Current password is required for any update"}, status: :unprocessable_entity
             return
         end
 
-        unless current_user.authenticate(user_params[:currentPassword])
+        unless user.authenticate(user_params[:currentPassword])
             render json: { error: "Current password is incorrect"}, status: :unprocessable_entity
             return
         end
@@ -36,8 +39,8 @@ class UsersController < ApplicationController
             return
         end
 
-        if current_user.update(user_params.except(:currentPassowrd))
-            render json: current_user
+        if user.update(user_params.except(:currentPassword))
+            render json: user
         else
             render json: { error: "Update failed" }, status: :unprocessable_entity
         end
