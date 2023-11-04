@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginSuccess } from './userSlice';
 
@@ -74,8 +75,8 @@ function Profile(){
                 </div>
                 <div>
                     <div className="success-or-error-messages">
-                        {showSuccessMessage && <div style={{ color: 'green' }}>Changes Saved</div>}
-                        {error && <div style={{ color: 'red' }}>Error: {error}</div>}
+                        {showSuccessMessage && <div style={{ color: 'rgb(0, 83, 94)' }}>Changes Saved</div>}
+                        {error && <div style={{ color: 'rgb(255, 70, 70)' }}>Error: {error}</div>}
                     </div>
                     <form id="edit-user-form" onSubmit={handleUserChangesSubmit}>
                         <div className="profile-container">
@@ -101,7 +102,7 @@ function Profile(){
                                     type="button"
                                     onClick={() => setShowCurrentPassword((prev) => !prev)}
                                 >
-                                    {showCurrentPassword ? "🚫👁️" : "👁️"}
+                                    {showCurrentPassword ? <FaEyeSlash /> : <FaEye />}
                                 </button>  
                             </div>
                             <div className="input-group" id="last-group">
@@ -114,7 +115,7 @@ function Profile(){
                                     type="button"
                                     onClick={() => setShowPassword((prev) => !prev)}
                                 >
-                                    {showPassword ? "🚫👁️" : "👁️"}
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
                                 </button>
                             </div>
                         </div>

@@ -1,4 +1,5 @@
 import "./User.css"
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
@@ -90,7 +91,7 @@ function Login(){
                     type="button"
                     onClick={() => setShowPassword((prev) => !prev)}
                 >
-                    {showPassword ? "🚫👁️" : "👁️"}
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
                 <br/>
                 <br/>
