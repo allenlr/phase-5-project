@@ -21,7 +21,6 @@ class UsersController < ApplicationController
     end
 
     def update
-        byebug
         user = User.find_by(id: session[:user_id])
 
         unless user_params[:currentPassword].present?

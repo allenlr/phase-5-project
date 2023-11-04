@@ -89,6 +89,13 @@ button.nav-link:hover {
     flex-direction: row;
 }
 
+.success-or-error-messages{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    margin-right: 80px;
+}
+
 .menu-description{
     margin-top:50px;
     display: flex;

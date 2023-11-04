@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+    include ActionController::Cookies
     rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
@@ -15,7 +16,6 @@ class ApplicationController < ActionController::API
     private
     
     def authorize
-        Rails.logger.info "Session Data: #{session.inspect}"
         return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
     end
 

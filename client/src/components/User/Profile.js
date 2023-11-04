@@ -73,8 +73,10 @@ function Profile(){
                     <p>Change User Info</p>
                 </div>
                 <div>
-                    {showSuccessMessage && <div style={{ color: 'green' }}>Changes Saved</div>}
-                    {error && <div style={{ color: 'red' }}>Error: {error}</div>}
+                    <div className="success-or-error-messages">
+                        {showSuccessMessage && <div style={{ color: 'green' }}>Changes Saved</div>}
+                        {error && <div style={{ color: 'red' }}>Error: {error}</div>}
+                    </div>
                     <form id="edit-user-form" onSubmit={handleUserChangesSubmit}>
                         <div className="profile-container">
                             <div className="input-group" id="first-group">
@@ -99,7 +101,7 @@ function Profile(){
                                     type="button"
                                     onClick={() => setShowCurrentPassword((prev) => !prev)}
                                 >
-                                    {showPassword ? "🚫👁️" : "👁️"}
+                                    {showCurrentPassword ? "🚫👁️" : "👁️"}
                                 </button>  
                             </div>
                             <div className="input-group" id="last-group">
