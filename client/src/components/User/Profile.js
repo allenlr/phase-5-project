@@ -80,43 +80,66 @@ function Profile(){
                     </div>
                     <form id="edit-user-form" onSubmit={handleUserChangesSubmit}>
                         <div className="profile-container">
-                            <div className="input-group" id="first-group">
+                            <div className="input-group">
                                 <label>
                                     Username
                                 </label>
-                                <input type="text" name="username" value={userForm.username} onChange={(e) => handleFormChanges(e)}></input>
+                                <input 
+                                    type="text" 
+                                    name="username" 
+                                    value={userForm.username} 
+                                    onChange={(e) => handleFormChanges(e)}>
+                                </input>
                             </div>
                             <div className="input-group">
                                 <label>
                                     Email
                                 </label>
-                                <input type="text" name="email" value={userForm.email} onChange={(e) => handleFormChanges(e)}></input>
+                                <input 
+                                    type="text" 
+                                    name="email" 
+                                    value={userForm.email} 
+                                    onChange={(e) => handleFormChanges(e)}>
+                                </input>
                             </div>
                             <div className="input-group">
                                 <label>
                                     Current Password
                                 </label>
-                                <input type={showCurrentPassword ? "text" : "password"} name="currentPassword" value={userForm.currentPassword} onChange={(e) => handleFormChanges(e)}></input>
-                                <button 
-                                    style={{fontSize: "10px", marginLeft:"5px"}} 
-                                    type="button"
-                                    onClick={() => setShowCurrentPassword((prev) => !prev)}
-                                >
-                                    {showCurrentPassword ? <FaEyeSlash /> : <FaEye />}
-                                </button>  
+                                <div className="input-button-wrapper">
+                                    <input 
+                                        type={showCurrentPassword ? "text" : "password"} 
+                                        name="currentPassword" 
+                                        value={userForm.currentPassword} 
+                                        onChange={(e) => handleFormChanges(e)}>
+                                    </input>
+                                    <button
+                                        className="hide-show-password-buttons"
+                                        type="button"
+                                        onClick={() => setShowCurrentPassword((prev) => !prev)}
+                                    >
+                                        {showCurrentPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </button>
+                                </div> 
                             </div>
-                            <div className="input-group" id="last-group">
+                            <div className="input-group">
                                 <label>
                                     New Password
                                 </label>
-                                <input type={showPassword ? "text" : "password"} name="password" value={userForm.password} onChange={(e) => handleFormChanges(e)}></input>
-                                <button 
-                                    style={{fontSize: "10px", marginLeft:"5px"}} 
-                                    type="button"
-                                    onClick={() => setShowPassword((prev) => !prev)}
-                                >
-                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                </button>
+                                <div className="input-button-wrapper">
+                                    <input 
+                                        type={showPassword ? "text" : "password"} 
+                                        name="password" value={userForm.password} 
+                                        onChange={(e) => handleFormChanges(e)}>
+                                    </input>
+                                    <button
+                                        className="hide-show-password-buttons"
+                                        type="button"
+                                        onClick={() => setShowPassword((prev) => !prev)}
+                                    >
+                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <button type="submit" id="save-changes-button">Save</button>

@@ -78,21 +78,24 @@ function Login(){
                     onChange={handleFormChange} 
                 />
                 <br/>
-                Password:
-                <input 
-                    style={{marginLeft: "10px"}}
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    value={loginForm.password}
-                    onChange={handleFormChange}
-                />
-                <button 
-                    style={{fontSize: "10px", marginLeft:"5px"}} 
-                    type="button"
-                    onClick={() => setShowPassword((prev) => !prev)}
-                >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </button>
+                <div className="login-input-button-wrapper">
+                    Password:
+                    <input 
+                        style={{marginLeft: "10px"}}
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        value={loginForm.password}
+                        onChange={handleFormChange}
+                    />
+                    <button 
+                        id="login-hide-show-button"
+                        className="hide-show-password-buttons"
+                        type="button"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                    >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                </div>
                 <br/>
                 <br/>
                 <button type="submit" id="login-button">Login</button>

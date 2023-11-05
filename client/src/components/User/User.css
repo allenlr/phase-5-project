@@ -142,10 +142,41 @@ button.nav-link:hover {
 }
 
 .input-group input {
-    width: 100%;
-    border: 2px solid #ffffff;
+    width: 90%;
+    border: 1px solid #ffffff;
     border-radius: 3px;
     height: 23px;
+}
+
+.input-button-wrapper{
+    display: flex;
+    align-items: center; 
+    margin-bottom: 15px;
+}
+
+
+
+.hide-show-password-buttons{
+    width: 25px;
+    height: 20px;
+    padding: 2px;
+    margin-left: 3px;
+    background: #fff;
+    border: 2px solid #ffffff;
+    border-radius: 2px;
+}
+
+.login-input-button-wrapper{
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+    
+}
+
+#login-hide-show-button{
+    width: 20px;
+    height: 18px;
+    padding: 1px;
 }
 
 #save-changes-button{
@@ -155,7 +186,7 @@ button.nav-link:hover {
     border: none;
     padding: 10px 10px;
     border-radius: 3px;
-    cursor: hand;
+    cursor: pointer;
     font-size: 15px;
     transition: background-color 0.3s;
     margin-top: 5px;
