@@ -3,7 +3,8 @@ import { Link, Navigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginSuccess } from './userSlice';
-import { setServiceProviders } from '../Services/serviceProvidersSlice';
+import { setServiceProviders, setSelectedProvider } from '../Services/serviceProvidersSlice';
+import { setSelectedServiceType } from '../Services/serviceTypesSlice';
 import { useNavigate } from 'react-router-dom';
 
 function Profile(){
@@ -22,12 +23,11 @@ function Profile(){
         password: ""
     })
 
-    function handleFormChanges(e){
-        const { name, value }= e.target
-        setUserForm({
-            ...userForm,
+    function handleFormChanges(name, value) {
+        setUserForm(prevForm => ({
+            ...prevForm,
             [name]: value
-        })
+        }))
     }
 
     function handleUserChangesSubmit(e){
@@ -71,14 +71,25 @@ function Profile(){
     }
 
 
-    function handleServiceProviderClick(serviceProvider){
-        console.log(serviceProvider)
-        dispatch(setServiceProviders([serviceProvider]))
-        navigate('/service_providers')
+    function handleServiceProviderClick(serviceProviderId) {
+        fetch(`/users/${currentUser.id}/service_providers/${serviceProviderId}`)
+          .then(response => {
+            console.log("response status:", response.status)
+            if (!response.ok) {
+              throw new Error('Network response was not ok.');
+            }
+            return response.json();
+          })
+          .then(data => {
+            dispatch(setSelectedServiceType(null))
+            dispatch(setSelectedProvider([data]));
+            navigate(`/service_providers`);
+          })
+          .catch(error => {
+            setError(`Fetch error: ${error.message}`);
+          });
     }
 
-    console.log(currentUser)
-    console.log(serviceProviders)
     return (
         <div className="profile-div">
             <div className="profile-information-div">
@@ -101,7 +112,7 @@ function Profile(){
                                     type="text" 
                                     name="username" 
                                     value={userForm.username} 
-                                    onChange={(e) => handleFormChanges(e)}>
+                                    onChange={(e) => handleFormChanges(e.target.name, e.target.value)}>
                                 </input>
                             </div>
                             <div className="input-group">
@@ -112,7 +123,7 @@ function Profile(){
                                     type="text" 
                                     name="email" 
                                     value={userForm.email} 
-                                    onChange={(e) => handleFormChanges(e)}>
+                                    onChange={(e) => handleFormChanges(e.target.name, e.target.value)}>
                                 </input>
                             </div>
                             <div className="input-group">
@@ -124,7 +135,7 @@ function Profile(){
                                         type={showCurrentPassword ? "text" : "password"} 
                                         name="currentPassword" 
                                         value={userForm.currentPassword} 
-                                        onChange={(e) => handleFormChanges(e)}>
+                                        onChange={(e) => handleFormChanges(e.target.name, e.target.value)}>
                                     </input>
                                     <button
                                         className="hide-show-password-buttons"
@@ -143,7 +154,7 @@ function Profile(){
                                     <input 
                                         type={showPassword ? "text" : "password"} 
                                         name="password" value={userForm.password} 
-                                        onChange={(e) => handleFormChanges(e)}>
+                                        onChange={(e) => handleFormChanges(e.target.name, e.target.value)}>
                                     </input>
                                     <button
                                         className="hide-show-password-buttons"
@@ -171,7 +182,7 @@ function Profile(){
                                 return (
                                     <div key={review.id} className="profile-review">
                                         <div className="comment-header">
-                                            <span to="/service_providers" className='service-names' onClick={() => handleServiceProviderClick(review.service_provider)}>
+                                            <span to="/service_providers" className='service-names' onClick={() => handleServiceProviderClick(review.service_provider.id)}>
                                                 {review.service_provider.business_name} Review
                                             </span>
                                             <span className="comment-timestamp">{review.date}</span>

@@ -45,13 +45,10 @@ class UsersController < ApplicationController
         end
     end
 
-    def service_providers_reviewed
-        user = User.find(params[:id])
-        service_providers = user.user_service_providers.map(&:service_provider).uniq
-        service_providers_with_reviews = ServiceProvider.where(id: service_providers).includes(:reviews)
-    
-        render json: service_providers_with_reviews.as_json(include: :reviews)
-      end
+    def user_accessed_service_provider
+        service_provider = ServiceProvider.find(params[:service_provider_id])
+        render json: service_provider, include: ['reviews'], status: :ok
+    end
 
     private
 

@@ -28,6 +28,16 @@ class UserServiceProvidersController < ApplicationController
         head :no_content
     end
 
+    def service_providers_reviewed
+        user = User.find(params[:id])
+        service_providers = user.service_providers.distinct
+        
+        service_providers_with_reviews = service_providers.includes(:reviews)
+
+        render json: service_providers_with_reviews.as_json(include: :reviews)
+      end
+      
+
     private
 
     def set_user
