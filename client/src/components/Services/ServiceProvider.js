@@ -4,9 +4,7 @@ import './Services.css'
 function ServiceProvider({provider}){
     const [showDetails, setShowDetails] = useState(false)
 
-    console.log(showDetails)
-
-    console.log(provider.reviews[0])
+    const reviews = Array.isArray(provider.reviews) ? provider.reviews : [];
 
     return(
         <div key={provider.id}>
@@ -18,8 +16,8 @@ function ServiceProvider({provider}){
             </p>
             {showDetails && (
                 <div>
-                    <h4 className="provider-reviews-header">{`Reviews (${provider.reviews.length})`}</h4>
-                    {provider.reviews.map((review) => {
+                    <h4 className="provider-reviews-header">{`Reviews (${reviews.length})`}</h4>
+                    {reviews.map((review) => {
                         return (
                             <div key={review.id} className="comment-container">
                                 <div className="comment-header">

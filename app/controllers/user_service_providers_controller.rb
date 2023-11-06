@@ -10,7 +10,7 @@ class UserServiceProvidersController < ApplicationController
         else
             @user_service_providers = UserServiceProvider.all
         end
-        render json: @user_service_providers, status: :ok
+        render json: @user_service_providers, include: { service_provider: { include: :reviews } }, status: :ok
     end
 
     def create

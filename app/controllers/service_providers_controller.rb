@@ -7,7 +7,7 @@ class ServiceProvidersController < ApplicationController
 
     def show
         service_provider = ServiceProvider.find(params[:id])
-        render json: service_provider, status: :ok
+        render json: service_provider, include: ['reviews'], status: :ok
     end
 
 end

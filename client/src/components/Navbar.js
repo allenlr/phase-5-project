@@ -32,7 +32,7 @@ function Navbar(){
                 Home
             </Link>
             <Link to="/services" className="nav-link">
-                Services
+                Search Services
             </Link>
             {currentUser ? 
                 <div className="navbar-actions">

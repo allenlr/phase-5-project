@@ -15,7 +15,7 @@ const serviceProvidersSlice = createSlice({
             state.providers = action.payload;
         },
         setSelectedProvider: (state, action) => {
-            state.providers = action.payload;
+            state.selectedProvider = action.payload;
         },
     },
 });

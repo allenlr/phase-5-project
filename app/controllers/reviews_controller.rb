@@ -2,9 +2,8 @@ class ReviewsController < ApplicationController
     before_action :set_reviewable
 
     def index
-        byebug
         reviews = @reviewable.reviews
-        render json: reviews, status: :ok
+        render json: reviews, include: ['service_provider'], status: :ok
     end
 
     def show

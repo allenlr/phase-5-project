@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
+import { Link, Navigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginSuccess } from './userSlice';
+import { setServiceProviders } from '../Services/serviceProvidersSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Profile(){
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const serviceProviders = useSelector(state => state.serviceProviders.providers)
     const currentUser = useSelector(state => state.user.currentUser)
     const [showPassword, setShowPassword] = useState(false);
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -65,7 +70,15 @@ function Profile(){
 
     }
 
+
+    function handleServiceProviderClick(serviceProvider){
+        console.log(serviceProvider)
+        dispatch(setServiceProviders([serviceProvider]))
+        navigate('/service_providers')
+    }
+
     console.log(currentUser)
+    console.log(serviceProviders)
     return (
         <div className="profile-div">
             <div className="profile-information-div">
@@ -76,7 +89,7 @@ function Profile(){
                 <div>
                     <div className="success-or-error-messages">
                         {showSuccessMessage && <div style={{ color: 'rgb(0, 83, 94)' }}>Changes Saved</div>}
-                        {error && <div style={{ color: 'rgb(255, 70, 70)' }}>Error: {error}</div>}
+                        {error && <div style={{ color: 'rgb(255, 70, 70)' }}>{error}</div>}
                     </div>
                     <form id="edit-user-form" onSubmit={handleUserChangesSubmit}>
                         <div className="profile-container">
@@ -154,11 +167,13 @@ function Profile(){
                 <div>
                     <div className="profile-reviews-container">
                         <div className="profile-container">
-                            {currentUser.reviews.map((review) => {
+                            {currentUser && currentUser.reviews && currentUser.reviews.map((review) => {
                                 return (
                                     <div key={review.id} className="profile-review">
                                         <div className="comment-header">
-                                            <span >{review.provider} Review</span>
+                                            <span to="/service_providers" className='service-names' onClick={() => handleServiceProviderClick(review.service_provider)}>
+                                                {review.service_provider.business_name} Review
+                                            </span>
                                             <span className="comment-timestamp">{review.date}</span>
                                         </div>
                                         <div className="comment-text">

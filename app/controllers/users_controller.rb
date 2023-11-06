@@ -24,7 +24,7 @@ class UsersController < ApplicationController
         user = User.find_by(id: session[:user_id])
 
         unless user_params[:currentPassword].present?
-            render json: { error: "Current password is required for any update"}, status: :unprocessable_entity
+            render json: { error: "Current password is required for any updates"}, status: :unprocessable_entity
             return
         end
 
@@ -44,6 +44,14 @@ class UsersController < ApplicationController
             render json: { error: "Update failed" }, status: :unprocessable_entity
         end
     end
+
+    def service_providers_reviewed
+        user = User.find(params[:id])
+        service_providers = user.user_service_providers.map(&:service_provider).uniq
+        service_providers_with_reviews = ServiceProvider.where(id: service_providers).includes(:reviews)
+    
+        render json: service_providers_with_reviews.as_json(include: :reviews)
+      end
 
     private
 
