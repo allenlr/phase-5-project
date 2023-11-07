@@ -89,8 +89,29 @@
     margin-top: 3px;
 }
 
+.edit-delete-comment-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .comment-text{
     font-size: 0.9rem;
     align-items: start;
     color: #ffffff;
 }
+
+.comment-edit{
+    color:#006674;
+    margin-left: 15px;
+    margin-top: 10px;
+    color: #8d8d8d;
+}
+
+.comment-delete{
+    margin-left: 10px;
+    margin-top: 10px;
+    color: #8d8d8d;
+
+}
+

@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import './Services.css'
+import { useSelector } from 'react-redux';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 
 function ServiceProvider({provider}){
     const [showDetails, setShowDetails] = useState(false)
 
     const reviews = Array.isArray(provider.reviews) ? provider.reviews : [];
+    console.log(reviews)
+    const currentUser = useSelector(state => state.user.currentUser)
 
     return(
-        <div key={provider.id}>
+        <div>
             <h3 className='provider-names' onClick={() => setShowDetails((prev) => !prev)}>
                 {provider.business_name}
             </h3>
@@ -24,8 +28,18 @@ function ServiceProvider({provider}){
                                     <span className="review-user">{review.username}</span>
                                     <span className="comment-timestamp">{review.date}</span>
                                 </div>
-                                <div className="comment-text">
-                                    <p>{review.comment}</p>
+                                <div className="edit-delete-comment-wrapper">
+                                    <div className="comment-text">
+                                        <p>{review.comment}</p>
+                                    </div>
+                                    {review.user_id === currentUser?.id ? 
+                                        <div>
+                                            <span className="comment-edit"><FaEdit /></span>
+                                            <span className="comment-delete"><FaTrashAlt /></span>
+                                        </div>
+                                    :
+                                        null
+                                    }
                                 </div>
                             </div>
                         );
