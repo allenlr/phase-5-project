@@ -4,10 +4,10 @@ Rails.application.routes.draw do
     get "service_providers/:service_provider_id", to: "users#user_accessed_service_provider"
   end
 
-  resources :service_types, only: [:index, :show] do
-    resources :service_providers, only: [:index, :show] do
-      resources :reviews, only: [:index, :create]
-    end
+  resources :service_types, only: [:index, :show]
+    
+  resources :service_providers, only: [:index, :show] do
+    resources :reviews, only: [:index, :create, :update, :destroy]
   end
 
   resources :user_service_providers, only: [:create, :index, :show, :destroy]

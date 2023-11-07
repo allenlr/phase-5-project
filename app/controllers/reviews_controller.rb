@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
     before_action :set_reviewable
+    before_action :authorize, except: [:show, :index]
 
     def index
         reviews = @reviewable.reviews
@@ -9,6 +10,10 @@ class ReviewsController < ApplicationController
     def show
         review = @reviewable.reviews.find(params[:id])
         render json: review, status: :ok
+    end
+
+    def update
+        
     end
 
     private

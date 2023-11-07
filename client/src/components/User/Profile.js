@@ -57,8 +57,9 @@ function Profile(){
                             throw new Error(data.error || "Unknown error");
                         })
                     }
+                } else{
+                    return res.json();
                 }
-                return res.json();
             })
             .then(data => {
                 dispatch(loginSuccess(data))
