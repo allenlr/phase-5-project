@@ -42,7 +42,6 @@
 
 .provider-names{
     margin-top: 10px;
-    /* margin-bottom: 5px; */
     font-size: 20px;
     color: #006674;
     font-weight: bold;
@@ -115,3 +114,32 @@
     cursor: pointer;
 }
 
+.text-area-button-wrapper{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#comment-edit-box{
+    width: 200px;
+    height: 60px;
+}
+
+.save-cancel-wrapper{
+    display: flex;
+    flex-direction: row;
+}
+
+.save-cancel-edit-buttons{
+    margin-top: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: #fff;
+}
+
+.save-cancel-edit-buttons:hover{
+    color: #facc37
+}

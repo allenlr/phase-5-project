@@ -13,9 +13,14 @@ class ReviewsController < ApplicationController
     end
 
     def update
+        review = @reviewable.reviews.find(params[:id])
         
-    end
-
+        if review.update(review_params)
+          render json: review, status: :ok
+        else
+          render json: { errors: review.errors.full_messages }, status: :unprocessable_entity
+        end
+      end
     private
 
     def set_reviewable

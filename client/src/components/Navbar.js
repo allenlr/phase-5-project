@@ -36,7 +36,7 @@ function Navbar(){
             </Link>
             {currentUser ? 
                 <div className="navbar-actions">
-                    <Account className="nav-buttons"/>
+                    <Account/>
                     
                 </div>
                 :

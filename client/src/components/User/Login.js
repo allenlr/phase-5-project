@@ -47,6 +47,7 @@ function Login(){
                 }
             })
             .then((userData) => {
+                console.log(userData.id)
                 dispatch(loginSuccess(userData));
                 setError(null)
                 navigate('/')
@@ -58,7 +59,6 @@ function Login(){
             })
     }
 
-    console.log(currentUser)
 
     return(
         <div className="login-div">
