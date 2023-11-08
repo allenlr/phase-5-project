@@ -27,7 +27,7 @@ function ServiceTypes(){
             {serviceTypes.map((type) => {
                 return (
                     <div key={type.id}>
-                        <Link to="/service_providers" className='service-names' onClick={() => handleServiceTypeSelect(type)}>
+                        <Link to="/service_providers" className="service-names" onClick={() => handleServiceTypeSelect(type)}>
                             {type.name}
                         </Link>
                         <p className='service-descriptions'>
