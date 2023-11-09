@@ -16,11 +16,18 @@ function ServiceProvider({provider}){
         setWriteReview(false)
     }
 
+    function handleReviewPost(){
+        fetch(`/service_providers/${provider.id}/reviews`)
+    }
+
     return(
         <div>
-            <h3 className='provider-names' onClick={() => setShowDetails((prev) => !prev)}>
-                {provider.business_name}
-            </h3>
+            <div className="provider-name-rating-wrapper">
+                <h3 className='provider-names' onClick={() => setShowDetails((prev) => !prev)}>
+                    {provider.business_name}
+                </h3>
+                <h4 className="provider-rating">({provider.avg_rating})</h4>
+            </div>
             <p className='provider-descriptions'>
                 {provider.description}
             </p>

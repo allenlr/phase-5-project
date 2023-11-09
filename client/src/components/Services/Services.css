@@ -41,11 +41,22 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.provider-name-rating-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
 .provider-names{
     margin-top: 10px;
     font-size: 20px;
     color: #006674;
     font-weight: bold;
+}
+
+.provider-rating{
+    margin-left: 9px;
+    color: #006674;
 }
 
 .provider-descriptions{
