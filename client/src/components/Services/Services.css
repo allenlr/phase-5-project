@@ -69,6 +69,10 @@
     cursor: pointer;
 }
 
+.star-rating-div:hover{
+    cursor: pointer;
+}
+
 .comment-container{
     display: flex;
     padding: 10px;

@@ -1,5 +1,5 @@
 import './Services.css'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import Review from './Review';
 
@@ -10,23 +10,81 @@ function ServiceProvider({provider}){
     const currentUser = useSelector(state => state.user.currentUser)
     const [newReview, setNewReview] = useState("")
     const [writeReview, setWriteReview] = useState(false)
+    const [newReviewRating, setNewReviewRating] = useState(5);
+    const [error, setError] = useState([])
+    const [averageRating, setAverageRating] = useState(provider.avg_rating)
+
+    useEffect(() => {
+        console.log(reviews);
+      }, [reviews]);
 
     function handleReviewCancel(){
         setNewReview("")
         setWriteReview(false)
     }
 
-    function handleReviewPost(){
-        fetch(`/service_providers/${provider.id}/reviews`)
+    async function handleReviewPost() {
+        try {
+            const response = await fetch(`/service_providers/${provider.id}/reviews`, {
+                credentials: "include",
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    comment: newReview, 
+                    rating: newReviewRating,
+                    user_id: currentUser?.id
+                })
+            });
+        
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.errors);
+            }
+        
+            const newReviewData = await response.json();
+            const reviewWithUser = { ...newReviewData.review, username: newReviewData.username };
+            
+            setReviews(prevReviews => [...prevReviews, reviewWithUser]);
+
+            setAverageRating(newReviewData.new_avg_rating);
+            setWriteReview(false);
+            setNewReview("");
+            setError([]);
+        } catch (error) {
+            setError(error.message);
+        }
+      }
+
+    const getStars = (rating) => {
+        return '⭐'.repeat(rating);
+    }
+
+    const handleStarClick = (selectedRating) => {
+        setNewReviewRating(selectedRating)
+    }
+
+    const renderStars = () => {
+        let stars = [];
+        for (let i = 1; i <= 5; i++){
+            if (i <= newReviewRating) {
+                stars.push(<span key={i} onClick={() => handleStarClick(i)}>⭐</span>);
+            } else {
+                stars.push(<span key={i} onClick={() => handleStarClick(i)}>☆</span>);
+            }
+        }
+        return stars;
     }
 
     return(
         <div>
+            {error && <div style={{ color: 'rgb(255, 70, 70)' }}>{error}</div>}
             <div className="provider-name-rating-wrapper">
                 <h3 className='provider-names' onClick={() => setShowDetails((prev) => !prev)}>
                     {provider.business_name}
                 </h3>
-                <h4 className="provider-rating">({provider.avg_rating})</h4>
+                <h4 className="provider-rating">{getStars(averageRating)}</h4>
             </div>
             <p className='provider-descriptions'>
                 {provider.description}
@@ -39,8 +97,12 @@ function ServiceProvider({provider}){
                     {currentUser && writeReview && (
                         <div>
                             <textarea placeholder="type review..." value={newReview} onChange={(e) => setNewReview(e.target.value)}></textarea>
+                            
                             <div className="save-cancel-wrapper">
-                                    <button className="save-cancel-edit-buttons">Post</button>
+                                    <div className="star-rating-div">
+                                        {renderStars()}
+                                    </div>
+                                    <button className="save-cancel-edit-buttons" onClick={handleReviewPost}>Post</button>
                                     <button className="save-cancel-edit-buttons" onClick={handleReviewCancel}>Cancel</button>
                             </div>
                         </div>

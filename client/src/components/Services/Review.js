@@ -29,11 +29,13 @@ function Review({setReviewsList, reviewsList, review, providerId}){
             },
             body: JSON.stringify({comment})
         })
-        .then(r => {
-            if(!r.ok){
-                throw new Error("Failed to update comment")
+        .then(response => {
+            if(!response.ok){
+                return response.json().then(errorJson => {
+                    throw new Error(errorJson.errors.join(", ") || "Failed to update comment");
+                });
             } else {
-                return r.json()
+                return response.json();
             }
         })
         .then((updatedComment) => {
@@ -49,8 +51,9 @@ function Review({setReviewsList, reviewsList, review, providerId}){
             setEditing(false)
         })
         .catch(error => {
+            console.log(error)
             setError(error.message)
-        })
+        });
     }
 
     return(

@@ -7,7 +7,7 @@ class ServiceProviderSerializer < ActiveModel::Serializer
     if object.reviews.any?
       object.reviews.average(:rating).to_f
     else
-      "No Ratings Yet"
+      0.0
     end
   end
 end

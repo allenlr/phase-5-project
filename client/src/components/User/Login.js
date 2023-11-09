@@ -47,7 +47,6 @@ function Login(){
                 }
             })
             .then((userData) => {
-                console.log(userData.id)
                 dispatch(loginSuccess(userData));
                 setError(null)
                 navigate('/')
