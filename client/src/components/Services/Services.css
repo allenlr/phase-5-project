@@ -65,6 +65,7 @@
     border-radius: 10px;
     flex-direction: column;
     margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .provider-reviews-header{
@@ -143,4 +144,18 @@
 
 .save-cancel-edit-buttons:hover{
     color: #facc37
+}
+
+.write-review-button{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: #fff;
+}
+
+.write-review-button:hover{
+    color: #8d8d8d
 }
