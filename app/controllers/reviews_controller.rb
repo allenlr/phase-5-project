@@ -33,6 +33,12 @@ class ReviewsController < ApplicationController
         render json: { review: review, new_avg_rating: new_avg_rating, username: user.username }, status: :created
     end
 
+    def destroy
+        review = Review.find(params[:id])
+        review.destroy
+        head :no_content
+    end
+
     private
 
     def set_reviewable

@@ -55,7 +55,9 @@ function ServiceProvider({provider}){
         } catch (error) {
             setError(error.message);
         }
-      }
+    }
+
+    
 
     const getStars = (rating) => {
         return '⭐'.repeat(rating);
@@ -75,6 +77,12 @@ function ServiceProvider({provider}){
             }
         }
         return stars;
+    }
+
+    function handleDeleteReview(reviewId){
+        setReviews((prevReviews) => {
+            return prevReviews.filter((review) => review.id !== reviewId)
+        })
     }
 
     return(
@@ -109,7 +117,14 @@ function ServiceProvider({provider}){
                     )}
                     {reviews.map((review) => {
                         return (
-                            <Review key={review?.id} review={review} reviewsList={reviews} providerId={provider?.id} setReviewsList={setReviews}/>
+                            <Review 
+                                key={review?.id} 
+                                review={review} 
+                                reviewsList={reviews} 
+                                providerId={provider?.id}
+                                setReviewsList={setReviews}
+                                onDelete={handleDeleteReview}
+                            />
                     )}
                     )}
                 </div>

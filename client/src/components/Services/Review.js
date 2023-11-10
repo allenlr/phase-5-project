@@ -3,7 +3,7 @@ import './Services.css'
 import { useSelector } from 'react-redux';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 
-function Review({setReviewsList, reviewsList, review, providerId}){
+function Review({setReviewsList, reviewsList, review, providerId, onDelete}){
     
     const currentUser = useSelector(state => state.user.currentUser)
     const [comment, setComment] = useState(review?.comment);
@@ -51,9 +51,24 @@ function Review({setReviewsList, reviewsList, review, providerId}){
             setEditing(false)
         })
         .catch(error => {
-            console.log(error)
             setError(error.message)
         });
+    }
+
+    function handleReviewDelete() {
+        fetch(`/service_providers/${providerId}/reviews/${review.id}`, {
+            credentials: "include",
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+        .then((r) => {
+            if(r.ok) {
+                onDelete(review.id)
+            }
+        })
+        .catch((error) => setError(error))
     }
 
     return(
@@ -84,7 +99,7 @@ function Review({setReviewsList, reviewsList, review, providerId}){
                 {review?.user_id === currentUser?.id &&
                     <div>
                         <span className="comment-edit" onClick={handleEditClick}><FaEdit /></span>
-                        <span className="comment-delete"><FaTrashAlt /></span>
+                        <span className="comment-delete" onClick={handleReviewDelete}><FaTrashAlt /></span>
                     </div>
                 }
             </div>
