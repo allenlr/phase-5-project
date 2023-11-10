@@ -1,24 +1,23 @@
+import '../Services/Services.css'
 import React, { useState } from 'react'
-import { Link, Navigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginSuccess } from './userSlice';
-import { setServiceProviders, setSelectedProvider } from '../Services/serviceProvidersSlice';
+import { setSelectedProvider } from '../Services/serviceProvidersSlice';
 import { setSelectedServiceType } from '../Services/serviceTypesSlice';
 import { useNavigate } from 'react-router-dom';
 
 function Profile(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const serviceProviders = useSelector(state => state.serviceProviders.providers)
     const currentUser = useSelector(state => state.user.currentUser)
     const [showPassword, setShowPassword] = useState(false);
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [error, setError] = useState(null);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [userForm, setUserForm] = useState({
-        username: currentUser.username,
-        email: currentUser.email,
+        username: currentUser?.username,
+        email: currentUser?.email,
         currentPassword: "",
         password: ""
     })
@@ -75,7 +74,6 @@ function Profile(){
     function handleServiceProviderClick(serviceProviderId) {
         fetch(`/users/${currentUser.id}/service_providers/${serviceProviderId}`)
           .then(response => {
-            console.log("response status:", response.status)
             if (!response.ok) {
               throw new Error('Network response was not ok.');
             }
@@ -90,6 +88,18 @@ function Profile(){
             setError(`Fetch error: ${error.message}`);
           });
     }
+
+    const getStars = (rating) => {
+        let stars = [];
+        for (let i = 1; i <= rating; i++) {
+            stars.push(
+                <span key={i} className="star">
+                    ★
+                </span>
+            );
+        }
+        return stars;
+    };
 
     return (
         <div className="profile-div">
@@ -179,7 +189,7 @@ function Profile(){
                 <div>
                     <div className="profile-reviews-container">
                         <div className="profile-container">
-                            {currentUser && currentUser.reviews && currentUser.reviews.map((review) => {
+                            {currentUser && currentUser?.reviews && currentUser?.reviews?.map((review) => {
                                 return (
                                     <div key={review.id} className="profile-review">
                                         <div className="comment-header">
@@ -188,9 +198,11 @@ function Profile(){
                                             </span>
                                             <span className="comment-timestamp">{review.date}</span>
                                         </div>
-                                        <div className="comment-text">
-                                            <p>{review.comment}</p>
-                                        </div>
+                                            <div className="comment-star-wrapper">
+                                                    <p>{review.comment}</p>
+                                                
+                                                    <span className="star-span">{getStars(review.rating)}</span>
+                                            </div>
                                     </div>
                                 )
                             })}

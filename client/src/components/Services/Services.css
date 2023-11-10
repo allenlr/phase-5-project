@@ -149,8 +149,8 @@
 }
 
 .star-span{
-    margin-top: 13px;
-    cursor: pointer;
+    margin-top: 14px;
+    /* cursor: pointer; */
 }
 
 #comment-edit-box{

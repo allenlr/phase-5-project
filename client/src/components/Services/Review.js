@@ -90,7 +90,11 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
                     {editing ? 
                     <div className="text-area-button-wrapper">
                         <textarea id="comment-edit-box" value={comment} onChange={(e) => setComment(e.target.value)}> </textarea>
-                        <span className="star-span">{renderEditableStars(rating, setRating)}</span>
+                        <span className="star-span">
+                            <span className="star-rating-div">
+                                {renderEditableStars(rating, setRating)}
+                            </span>
+                        </span>
                             <div className="save-cancel-wrapper">
                                 <button className="save-cancel-edit-buttons" onClick={handleSaveComment}>Save</button>
                                 <button className="save-cancel-edit-buttons" onClick={handleEditCancel}>Cancel</button>
@@ -99,7 +103,10 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
                     : 
                     <div className="comment-star-wrapper">
                         <p>{review?.comment}</p>
-                        <span className="star-span">{renderStars(review.rating)}</span>
+                        
+                        <span className="star-span">
+                            {renderStars(review.rating)}
+                        </span>
                     </div>
                     }
                 </div>
