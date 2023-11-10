@@ -91,7 +91,7 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
                     <div className="text-area-button-wrapper">
                         <textarea id="comment-edit-box" value={comment} onChange={(e) => setComment(e.target.value)}> </textarea>
                         <span className="star-span">
-                            <span className="star-rating-div">
+                            <span className="star-editing-div">
                                 {renderEditableStars(rating, setRating)}
                             </span>
                         </span>

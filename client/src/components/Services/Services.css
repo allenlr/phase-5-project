@@ -73,7 +73,7 @@
     cursor: pointer;
 }
 
-.star-rating-div:hover{
+.star-editing-div:hover{
     cursor: pointer;
 }
 
@@ -150,7 +150,6 @@
 
 .star-span{
     margin-top: 14px;
-    /* cursor: pointer; */
 }
 
 #comment-edit-box{

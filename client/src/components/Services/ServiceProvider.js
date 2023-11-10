@@ -134,7 +134,7 @@ function ServiceProvider({provider}){
                             <textarea placeholder="type review..." value={newReview} onChange={(e) => setNewReview(e.target.value)}></textarea>
                             
                             <div className="save-cancel-wrapper">
-                                    <div className="star-rating-div">
+                                    <div className="star-editing-div">
                                         {renderEditableStars(newReviewRating, setNewReviewRating)}
                                     </div>
                                     <button className="save-cancel-edit-buttons" onClick={handleReviewPost}>Post</button>
