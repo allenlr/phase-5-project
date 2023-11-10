@@ -71,9 +71,9 @@ function ServiceProvider({provider}){
         return stars;
     };
 
-    const handleStarClick = (selectedRating) => {
-        setNewReviewRating(selectedRating)
-    }
+    // const handleStarClick = (selectedRating) => {
+    //     setNewReviewRating(selectedRating)
+    // }
 
     const renderStars = (rating) => {
         let stars = [];
@@ -90,16 +90,16 @@ function ServiceProvider({provider}){
         return stars;
     };
 
-    const renderEditableStars = () => {
+    const renderEditableStars = (rating, onRatingChange) => {
         let stars = [];
         for (let i = 1; i <= 5; i++) {
             stars.push(
                 <span 
                     key={i} 
                     className="star" 
-                    onClick={() => setNewReviewRating(i)}
+                    onClick={() => onRatingChange(i)}
                 >
-                    {i <= newReviewRating ? '★' : '☆'}
+                    {i <= rating ? '★' : '☆'}
                 </span>
             );
         }
@@ -135,7 +135,7 @@ function ServiceProvider({provider}){
                             
                             <div className="save-cancel-wrapper">
                                     <div className="star-rating-div">
-                                        {renderEditableStars()}
+                                        {renderEditableStars(newReviewRating, setNewReviewRating)}
                                     </div>
                                     <button className="save-cancel-edit-buttons" onClick={handleReviewPost}>Post</button>
                                     <button className="save-cancel-edit-buttons" onClick={handleReviewCancel}>Cancel</button>
@@ -153,7 +153,6 @@ function ServiceProvider({provider}){
                                 onDelete={handleDeleteReview}
                                 renderStars={renderStars}
                                 setNewReviewRating={setNewReviewRating}
-                                newReviewRating={newReviewRating}
                                 renderEditableStars={renderEditableStars}
                             />
                     )}

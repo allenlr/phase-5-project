@@ -10,6 +10,7 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
     const [error, setError] = useState(null)
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [editing, setEditing] = useState(false)
+    const [rating, setRating] = useState(review.rating)
 
     function handleEditClick() {
         setEditing((prevState) => !prevState)
@@ -27,7 +28,7 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({comment})
+            body: JSON.stringify({comment, rating})
         })
         .then(response => {
             if(!response.ok){
@@ -89,7 +90,7 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
                     {editing ? 
                     <div className="text-area-button-wrapper">
                         <textarea id="comment-edit-box" value={comment} onChange={(e) => setComment(e.target.value)}> </textarea>
-                        <span className="star-span">{renderEditableStars()}</span>
+                        <span className="star-span">{renderEditableStars(rating, setRating)}</span>
                             <div className="save-cancel-wrapper">
                                 <button className="save-cancel-edit-buttons" onClick={handleSaveComment}>Save</button>
                                 <button className="save-cancel-edit-buttons" onClick={handleEditCancel}>Cancel</button>
