@@ -142,6 +142,17 @@
     align-items: flex-start;
 }
 
+.comment-star-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.star-span{
+    margin-top: 13px;
+    cursor: pointer;
+}
+
 #comment-edit-box{
     width: 200px;
     height: 60px;

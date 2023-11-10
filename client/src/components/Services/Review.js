@@ -3,7 +3,7 @@ import './Services.css'
 import { useSelector } from 'react-redux';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 
-function Review({setReviewsList, reviewsList, review, providerId, onDelete}){
+function Review({setReviewsList, reviewsList, review, providerId, onDelete, renderStars, renderEditableStars}){
     
     const currentUser = useSelector(state => state.user.currentUser)
     const [comment, setComment] = useState(review?.comment);
@@ -55,6 +55,8 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete}){
         });
     }
 
+    
+
     function handleReviewDelete() {
         fetch(`/service_providers/${providerId}/reviews/${review.id}`, {
             credentials: "include",
@@ -83,17 +85,21 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete}){
             </div>
             <div className="edit-delete-comment-wrapper">
                 <div className="comment-text">
+                
                     {editing ? 
                     <div className="text-area-button-wrapper">
                         <textarea id="comment-edit-box" value={comment} onChange={(e) => setComment(e.target.value)}> </textarea>
-                            {/* {renderStars()} */}
+                        <span className="star-span">{renderEditableStars()}</span>
                             <div className="save-cancel-wrapper">
                                 <button className="save-cancel-edit-buttons" onClick={handleSaveComment}>Save</button>
                                 <button className="save-cancel-edit-buttons" onClick={handleEditCancel}>Cancel</button>
                             </div>
                     </div>
                     : 
+                    <div className="comment-star-wrapper">
                         <p>{review?.comment}</p>
+                        <span className="star-span">{renderStars(review.rating)}</span>
+                    </div>
                     }
                 </div>
                 {review?.user_id === currentUser?.id &&

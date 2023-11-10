@@ -75,14 +75,29 @@ function ServiceProvider({provider}){
         setNewReviewRating(selectedRating)
     }
 
-    const renderStars = () => {
+    const renderStars = (rating) => {
         let stars = [];
         for (let i = 1; i <= 5; i++) {
             stars.push(
                 <span 
                     key={i} 
                     className="star" 
-                    onClick={() => handleStarClick(i)}
+                >
+                    {i <= rating ? '★' : '☆'}
+                </span>
+            );
+        }
+        return stars;
+    };
+
+    const renderEditableStars = () => {
+        let stars = [];
+        for (let i = 1; i <= 5; i++) {
+            stars.push(
+                <span 
+                    key={i} 
+                    className="star" 
+                    onClick={() => setNewReviewRating(i)}
                 >
                     {i <= newReviewRating ? '★' : '☆'}
                 </span>
@@ -102,17 +117,17 @@ function ServiceProvider({provider}){
             {error && <div style={{ color: 'rgb(255, 70, 70)' }}>{error}</div>}
             <div className="provider-name-rating-wrapper">
                 <h3 className='provider-names' onClick={() => setShowDetails((prev) => !prev)}>
-                    {provider.business_name}
+                    {provider?.business_name}
                 </h3>
                 <h4 className="provider-rating">{getStars(averageRating)}</h4>
             </div>
             <p className='provider-descriptions'>
-                {provider.description}
+                {provider?.description}
             </p>
             
             {showDetails && (
                 <div>
-                    <h4 className="provider-reviews-header">{`Reviews (${reviews.length})`}</h4>
+                    <h4 className="provider-reviews-header">{`Reviews (${reviews?.length})`}</h4>
                     <button className="write-review-button" onClick={() => setWriteReview((prevValue) => !prevValue)}>Write Review</button>
                     {currentUser && writeReview && (
                         <div>
@@ -120,7 +135,7 @@ function ServiceProvider({provider}){
                             
                             <div className="save-cancel-wrapper">
                                     <div className="star-rating-div">
-                                        {renderStars()}
+                                        {renderEditableStars()}
                                     </div>
                                     <button className="save-cancel-edit-buttons" onClick={handleReviewPost}>Post</button>
                                     <button className="save-cancel-edit-buttons" onClick={handleReviewCancel}>Cancel</button>
@@ -136,6 +151,10 @@ function ServiceProvider({provider}){
                                 providerId={provider?.id}
                                 setReviewsList={setReviews}
                                 onDelete={handleDeleteReview}
+                                renderStars={renderStars}
+                                setNewReviewRating={setNewReviewRating}
+                                newReviewRating={newReviewRating}
+                                renderEditableStars={renderEditableStars}
                             />
                     )}
                     )}
