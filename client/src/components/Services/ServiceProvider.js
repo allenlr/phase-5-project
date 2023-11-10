@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import Review from './Review';
 
 function ServiceProvider({provider}){
-    // const reviews = Array.isArray(provider.reviews) ? provider.reviews : [];
     const [reviews, setReviews] = useState(provider.reviews || [])
     const [showDetails, setShowDetails] = useState(false)
     const currentUser = useSelector(state => state.user.currentUser)
@@ -21,6 +20,7 @@ function ServiceProvider({provider}){
     function handleReviewCancel(){
         setNewReview("")
         setWriteReview(false)
+        setNewReviewRating(5)
     }
 
     async function handleReviewPost() {
@@ -60,8 +60,16 @@ function ServiceProvider({provider}){
     
 
     const getStars = (rating) => {
-        return '⭐'.repeat(rating);
-    }
+        let stars = [];
+        for (let i = 1; i <= rating; i++) {
+            stars.push(
+                <span key={i} className="star">
+                    ★
+                </span>
+            );
+        }
+        return stars;
+    };
 
     const handleStarClick = (selectedRating) => {
         setNewReviewRating(selectedRating)
@@ -69,15 +77,19 @@ function ServiceProvider({provider}){
 
     const renderStars = () => {
         let stars = [];
-        for (let i = 1; i <= 5; i++){
-            if (i <= newReviewRating) {
-                stars.push(<span key={i} onClick={() => handleStarClick(i)}>⭐</span>);
-            } else {
-                stars.push(<span key={i} onClick={() => handleStarClick(i)}>☆</span>);
-            }
+        for (let i = 1; i <= 5; i++) {
+            stars.push(
+                <span 
+                    key={i} 
+                    className="star" 
+                    onClick={() => handleStarClick(i)}
+                >
+                    {i <= newReviewRating ? '★' : '☆'}
+                </span>
+            );
         }
         return stars;
-    }
+    };
 
     function handleDeleteReview(reviewId){
         setReviews((prevReviews) => {

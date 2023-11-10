@@ -59,6 +59,10 @@
     color: #006674;
 }
 
+.star{
+    margin-left: 5px;
+}
+
 .provider-descriptions{
     color: #ffffff;
     line-height: 1.0;
