@@ -6,6 +6,7 @@ import ServiceProvider from './ServiceProvider'
 
 function ServiceProviders({serviceType}){
     const dispatch = useDispatch()
+    const error = useSelector(state => state.error.currentError)
     const serviceProviders = useSelector(state => state.serviceProviders.providers)
     const selectedServiceProvider = useSelector(state => state.serviceProviders.selectedProvider)
 
@@ -23,7 +24,9 @@ function ServiceProviders({serviceType}){
         <div className="providers-container">
             {serviceProviders.map((provider) => {
                 return (
-                    <ServiceProvider key={provider.id} provider={provider} />
+                    <div>
+                        <ServiceProvider key={provider.id} provider={provider} />
+                    </div>
                 )
             })}
 

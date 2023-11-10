@@ -1,18 +1,19 @@
 import "./User.css"
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { loginRequest, loginSuccess, loginFailure } from './userSlice'
+import { setError } from '../errorSlice';
 
 function Login(){
+    const error = useSelector(state => state.error.currentError)
     const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false);
     const [loginForm, setLoginForm] = useState({
         username: '',
         password: '',
     })
-    const [error, setError] = useState(null)
     const navigate = useNavigate();
 
     function handleFormChange(e) {
@@ -47,16 +48,16 @@ function Login(){
             })
             .then((userData) => {
                 dispatch(loginSuccess(userData));
-                setError(null)
+                dispatch(setError(null))
                 navigate('/')
             })
             .catch((error) => {
                 dispatch(loginFailure(error.message))
-                setError(error)
-                console.log(`error: ${error.message}`)
+                dispatch(setError(error.message))
             })
     }
 
+    console.log(error)
 
     return(
         <div className="login-div">
@@ -65,7 +66,7 @@ function Login(){
             </h1>
             <br />
             <br />
-            <span id="error-handle">{error ? error.message : null}</span>
+            {/* {error && <span id="error-handle">{error}</span>} */}
             <form className="login-form" onSubmit={handleLogin}>
                 Username:
                 <input

@@ -1,20 +1,34 @@
 import './Services.css'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getServices, setSelectedServiceType, addService, removeService } from './serviceTypesSlice'
 import { Link } from 'react-router-dom';
+import { setError } from '../errorSlice';
 
 
 function ServiceTypes(){
     const dispatch = useDispatch();
     const serviceTypes = useSelector(state => state.serviceTypes.services); 
+    const error = useSelector(state => state.error.currentError)
     
 
     useEffect(() => {
         fetch('/service_types')
-        .then((r) => r.json())
+        .then((r) => {
+            if(!r.ok){
+                return r.json().then(errorJson => {
+                    throw new Error(errorJson.errors.join(", ") || "Failed to fetch Service Types");
+                });
+            } else {
+                return r.json();
+            }
+        })
         .then((serviceTypesData) => {
             dispatch(getServices(serviceTypesData))
+            dispatch(setError(null))
+        })
+        .catch(error => {
+            dispatch(setError(error.message))
         })
     }, [dispatch])
 

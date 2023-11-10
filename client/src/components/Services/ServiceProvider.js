@@ -1,16 +1,20 @@
 import './Services.css'
+import '../User/User.css'
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Review from './Review';
+import { setError } from '../errorSlice';
 
 function ServiceProvider({provider}){
+    const dispatch = useDispatch();
+    const error = useSelector(state => state.error.currentError)
     const [reviews, setReviews] = useState(provider.reviews || [])
     const [showDetails, setShowDetails] = useState(false)
     const currentUser = useSelector(state => state.user.currentUser)
     const [newReview, setNewReview] = useState("")
     const [writeReview, setWriteReview] = useState(false)
     const [newReviewRating, setNewReviewRating] = useState(5);
-    const [error, setError] = useState([])
+    // const [error, setError] = useState([])
     const [averageRating, setAverageRating] = useState(provider.avg_rating)
 
     useEffect(() => {
@@ -51,9 +55,9 @@ function ServiceProvider({provider}){
             setAverageRating(newReviewData.new_avg_rating);
             setWriteReview(false);
             setNewReview("");
-            setError([]);
+            dispatch(setError(null));
         } catch (error) {
-            setError(error.message);
+            dispatch(setError(error.message));
         }
     }
 
@@ -114,7 +118,7 @@ function ServiceProvider({provider}){
 
     return(
         <div>
-            {error && <div style={{ color: 'rgb(255, 70, 70)' }}>{error}</div>}
+            
             <div className="provider-name-rating-wrapper">
                 <h3 className='provider-names' onClick={() => setShowDetails((prev) => !prev)}>
                     {provider?.business_name}

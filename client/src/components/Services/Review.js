@@ -4,14 +4,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { loginSuccess } from '../User/userSlice';
 import { setServiceProviders } from './serviceProvidersSlice';
+import { setError } from '../errorSlice';
 
 function Review({setReviewsList, reviewsList, review, providerId, onDelete, renderStars, renderEditableStars}){
     
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.user.currentUser)
+    const error = useSelector(state => state.error.currentError)
     const serviceProviders = useSelector(state => state.serviceProviders.providers)
     const [comment, setComment] = useState(review?.comment);
-    const [error, setError] = useState(null)
+    // const [error, setError] = useState(null)
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [editing, setEditing] = useState(false)
     const [rating, setRating] = useState(review.rating)
@@ -83,11 +85,11 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
                 }
             }))
             setShowSuccessMessage(true)
-            setError(null)
+            dispatch(setError(null))
             setEditing(false)
         })
         .catch(error => {
-            setError(error.message)
+            dispatch(setError(error.message))
         });
     }
 
@@ -106,14 +108,13 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
                 onDelete(review.id)
             }
         })
-        .catch((error) => setError(error))
+        .catch((error) => dispatch(setError(error.message)))
     }
 
     return(
         <div className="comment-container">
             <div className="success-or-error-messages">
                 {showSuccessMessage && <div style={{ color: 'rgb(0, 250, 250)' }}>Comment Updated</div>}
-                {error && <div style={{ color: 'rgb(255, 70, 70)' }}>{error}</div>}
             </div>
             <div className="comment-header">
                 <span className="review-user">{review?.username}</span>

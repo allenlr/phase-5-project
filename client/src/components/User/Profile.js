@@ -6,14 +6,16 @@ import { loginSuccess } from './userSlice';
 import { setSelectedProvider } from '../Services/serviceProvidersSlice';
 import { setSelectedServiceType } from '../Services/serviceTypesSlice';
 import { useNavigate } from 'react-router-dom';
+import { setError } from '../errorSlice';
 
 function Profile(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const error = useSelector(state => state.error.currentError)
     const currentUser = useSelector(state => state.user.currentUser)
     const [showPassword, setShowPassword] = useState(false);
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [userForm, setUserForm] = useState({
         username: currentUser?.username,
@@ -31,7 +33,7 @@ function Profile(){
 
     function handleUserChangesSubmit(e){
         e.preventDefault();
-        setError(null);
+        dispatch(setError(null));
 
         const user = {
             username: userForm.username,
@@ -63,9 +65,10 @@ function Profile(){
             .then(data => {
                 dispatch(loginSuccess(data))
                 setShowSuccessMessage(true)
+                dispatch(setError(null))
             })
             .catch(error => {
-                setError(error.message)
+                dispatch(setError(error.message))
             })
 
     }
@@ -83,9 +86,10 @@ function Profile(){
             dispatch(setSelectedServiceType(null))
             dispatch(setSelectedProvider([data]));
             navigate(`/service_providers`);
+            dispatch(setError(null))
           })
           .catch(error => {
-            setError(`Fetch error: ${error.message}`);
+            dispatch(setError(error.message));
           });
     }
 
@@ -111,7 +115,7 @@ function Profile(){
                 <div>
                     <div className="success-or-error-messages">
                         {showSuccessMessage && <div style={{ color: 'rgb(0, 83, 94)' }}>Changes Saved</div>}
-                        {error && <div style={{ color: 'rgb(255, 70, 70)' }}>{error}</div>}
+                        {/* {error && <div id="error-handle">{error}</div>} */}
                     </div>
                     <form id="edit-user-form" onSubmit={handleUserChangesSubmit}>
                         <div className="profile-container">

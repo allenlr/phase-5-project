@@ -1,11 +1,13 @@
 import "./User.css"
 import React, { useState, useRef, useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logout } from './userSlice'
+import { setError } from '../errorSlice';
 
 function Account(){
+    const error = useSelector(state => state.error.currentError)
     const dropdownRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
     const navigate = useNavigate();
@@ -38,7 +40,7 @@ function Account(){
             }
         })
         .catch(error => {
-            console.error(error)
+            dispatch(setError(error.message))
         })
     }
 
