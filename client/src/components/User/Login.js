@@ -1,13 +1,12 @@
 import "./User.css"
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { loginRequest, loginSuccess, loginFailure } from './userSlice'
 
 function Login(){
     const dispatch = useDispatch();
-    const currentUser = useSelector(state => state.user.currentUser);
     const [showPassword, setShowPassword] = useState(false);
     const [loginForm, setLoginForm] = useState({
         username: '',

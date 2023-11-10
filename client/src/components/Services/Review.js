@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import './Services.css'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { loginSuccess } from '../User/userSlice';
 
 function Review({setReviewsList, reviewsList, review, providerId, onDelete, renderStars, renderEditableStars}){
     
+    const dispatch = useDispatch()
     const currentUser = useSelector(state => state.user.currentUser)
     const [comment, setComment] = useState(review?.comment);
     const [error, setError] = useState(null)
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [editing, setEditing] = useState(false)
     const [rating, setRating] = useState(review.rating)
+    
 
     function handleEditClick() {
         setEditing((prevState) => !prevState)
@@ -19,6 +22,7 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
     function handleEditCancel(){
         setEditing(false)
         setComment(review.comment)
+        setRating(5)
     }
 
     function handleSaveComment(){
@@ -39,10 +43,20 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
                 return response.json();
             }
         })
-        .then((updatedComment) => {
+        .then((updatedReview) => {
+            dispatch(loginSuccess({
+                ...currentUser,
+                reviews: currentUser.reviews.map((item) => {
+                    if (item.id === updatedReview.id){
+                        return updatedReview;
+                    } else{
+                        return item;
+                    }
+                })
+            }));
             setReviewsList(reviewsList.map((item) => {
                 if(review?.id === item.id){
-                    return updatedComment
+                    return updatedReview
                 } else {
                     return item
                 }
