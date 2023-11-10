@@ -3,11 +3,13 @@ import './Services.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { loginSuccess } from '../User/userSlice';
+import { setServiceProviders } from './serviceProvidersSlice';
 
 function Review({setReviewsList, reviewsList, review, providerId, onDelete, renderStars, renderEditableStars}){
     
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.user.currentUser)
+    const serviceProviders = useSelector(state => state.serviceProviders.providers)
     const [comment, setComment] = useState(review?.comment);
     const [error, setError] = useState(null)
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
@@ -54,8 +56,27 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
                     }
                 })
             }));
+
+            const updatedProviders = serviceProviders?.map((provider) => {
+                if (provider.id === providerId) {
+                    return {
+                        ...provider,
+                        reviews: provider.reviews.map((rev) => {
+                            if (rev.id === updatedReview.id) {
+                                return updatedReview;
+                            } else {
+                                return rev;
+                            }
+                        })
+                    }
+                } else {
+                    return provider
+                }
+            })
+            dispatch(setServiceProviders(updatedProviders));
+
             setReviewsList(reviewsList.map((item) => {
-                if(review?.id === item.id){
+                if(review.id === item.id){
                     return updatedReview
                 } else {
                     return item
