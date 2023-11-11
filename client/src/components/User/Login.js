@@ -3,7 +3,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { loginRequest, loginSuccess, loginFailure } from './userSlice'
+import { loginRequest, user } from './userSlice'
 import { setError } from '../errorSlice';
 
 function Login(){
@@ -47,12 +47,11 @@ function Login(){
                 }
             })
             .then((userData) => {
-                dispatch(loginSuccess(userData));
+                dispatch(user(userData));
                 dispatch(setError(null))
                 navigate('/')
             })
             .catch((error) => {
-                dispatch(loginFailure(error.message))
                 dispatch(setError(error.message))
             })
     }

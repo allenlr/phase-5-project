@@ -2,7 +2,7 @@ import '../Services/Services.css'
 import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginSuccess } from './userSlice';
+import { user } from './userSlice';
 import { setSelectedProvider } from '../Services/serviceProvidersSlice';
 import { setSelectedServiceType } from '../Services/serviceTypesSlice';
 import { useNavigate } from 'react-router-dom';
@@ -11,11 +11,9 @@ import { setError } from '../errorSlice';
 function Profile(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const error = useSelector(state => state.error.currentError)
     const currentUser = useSelector(state => state.user.currentUser)
     const [showPassword, setShowPassword] = useState(false);
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-    // const [error, setError] = useState(null);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [userForm, setUserForm] = useState({
         username: currentUser?.username,
@@ -63,7 +61,7 @@ function Profile(){
                 }
             })
             .then(data => {
-                dispatch(loginSuccess(data))
+                dispatch(user(data))
                 setShowSuccessMessage(true)
                 dispatch(setError(null))
             })

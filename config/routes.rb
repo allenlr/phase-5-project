@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :service_types, only: [:index, :show]
     
   resources :service_providers, only: [:index, :show] do
-    resources :reviews, only: [:index, :create, :update, :destroy]
+    resources :reviews, only: [:index, :create, :update, :destroy, :show]
   end
 
   resources :user_service_providers, only: [:create, :index, :show, :destroy]

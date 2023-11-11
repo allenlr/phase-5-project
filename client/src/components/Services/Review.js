@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Services.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
-import { loginSuccess } from '../User/userSlice';
+import { user } from '../User/userSlice';
 import { setServiceProviders } from './serviceProvidersSlice';
 import { setError } from '../errorSlice';
 
@@ -48,7 +48,7 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
             }
         })
         .then((updatedReview) => {
-            dispatch(loginSuccess({
+            dispatch(user({
                 ...currentUser,
                 reviews: currentUser.reviews.map((item) => {
                     if (item.id === updatedReview.id){
@@ -106,6 +106,11 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
         .then((r) => {
             if(r.ok) {
                 onDelete(review.id)
+                
+            } else {
+                return r.json().then(errorJson => {
+                    throw new Error(errorJson.errors.join(", ") || "Failed to delete comment");
+                });
             }
         })
         .catch((error) => dispatch(setError(error.message)))

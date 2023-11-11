@@ -9,7 +9,6 @@ import { setError } from '../errorSlice';
 function ServiceTypes(){
     const dispatch = useDispatch();
     const serviceTypes = useSelector(state => state.serviceTypes.services); 
-    const error = useSelector(state => state.error.currentError)
     
 
     useEffect(() => {

@@ -4,22 +4,33 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import Review from './Review';
 import { setError } from '../errorSlice';
+import { user } from '../User/userSlice';
+import { addReviewThunk } from './addReviewThunk';
+
+
 
 function ServiceProvider({provider}){
     const dispatch = useDispatch();
-    const error = useSelector(state => state.error.currentError)
+    const updatedProvider = useSelector(state =>
+        state.serviceProviders.providers.find(p => p.id === provider.id)
+    );
     const [reviews, setReviews] = useState(provider.reviews || [])
     const [showDetails, setShowDetails] = useState(false)
     const currentUser = useSelector(state => state.user.currentUser)
     const [newReview, setNewReview] = useState("")
     const [writeReview, setWriteReview] = useState(false)
     const [newReviewRating, setNewReviewRating] = useState(5);
-    // const [error, setError] = useState([])
     const [averageRating, setAverageRating] = useState(provider.avg_rating)
 
+
     useEffect(() => {
-        console.log(reviews);
-      }, [reviews]);
+        if (updatedProvider) {
+            setReviews(updatedProvider.reviews || []);
+            const totalRating = updatedProvider.reviews.reduce((acc, review) => acc + review.rating, 0);
+            const avgRating = updatedProvider.reviews.length ? totalRating / updatedProvider.reviews.length : 0;
+            setAverageRating(avgRating);
+        }
+    }, [provider.id, dispatch]);
 
     function handleReviewCancel(){
         setNewReview("")
@@ -28,37 +39,17 @@ function ServiceProvider({provider}){
     }
 
     async function handleReviewPost() {
-        try {
-            const response = await fetch(`/service_providers/${provider.id}/reviews`, {
-                credentials: "include",
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    comment: newReview, 
-                    rating: newReviewRating,
-                    user_id: currentUser?.id
-                })
-            });
-        
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.errors);
-            }
-        
-            const newReviewData = await response.json();
-            const reviewWithUser = { ...newReviewData.review, username: newReviewData.username };
-            
-            setReviews(prevReviews => [...prevReviews, reviewWithUser]);
+        const reviewData = {
+            comment: newReview,
+            rating: newReviewRating,
+            user_id: currentUser?.id
+        }
 
-            setAverageRating(newReviewData.new_avg_rating);
+           dispatch(addReviewThunk(provider.id, reviewData, provider.service_type_id));
+
             setWriteReview(false);
             setNewReview("");
             dispatch(setError(null));
-        } catch (error) {
-            dispatch(setError(error.message));
-        }
     }
 
     

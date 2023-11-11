@@ -17,9 +17,16 @@ const serviceProvidersSlice = createSlice({
         setSelectedProvider: (state, action) => {
             state.selectedProvider = action.payload;
         },
+        addReviewToProvider: (state, action) => {
+            const { providerId, review } = action.payload;
+            const providerIndex = state.providers.findIndex(p => p.id === providerId);
+            if (providerIndex !== -1) {
+                state.providers[providerIndex].reviews.push(review);
+            }
+        },
     },
 });
 
-export const { setServiceProviders, setSelectedProvider } = serviceProvidersSlice.actions;
+export const { setServiceProviders, setSelectedProvider, addReviewToProvider } = serviceProvidersSlice.actions;
 
 export default serviceProvidersSlice.reducer;
