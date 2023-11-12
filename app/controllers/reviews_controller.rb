@@ -30,7 +30,7 @@ class ReviewsController < ApplicationController
 
         new_avg_rating = service_provider.reviews.average(:rating).to_f.round(1)
 
-        render json: { review: review, new_avg_rating: new_avg_rating, username: user.username }, status: :created
+        render json: review, meta: { new_avg_rating: new_avg_rating }, status: :created
     end
 
     def destroy

@@ -24,9 +24,16 @@ const serviceProvidersSlice = createSlice({
                 state.providers[providerIndex].reviews.push(review);
             }
         },
+        deleteReviewFromProvider: (state, action) => {
+            const { providerId, reviewId } = action.payload;
+            const providerIndex = state.providers.findIndex(p => p.id === providerId);
+            if (providerIndex !== -1) {
+                state.providers[providerIndex].reviews = state.providers[providerIndex].reviews.filter(review => review.id !== reviewId)
+            }
+        }
     },
 });
 
-export const { setServiceProviders, setSelectedProvider, addReviewToProvider } = serviceProvidersSlice.actions;
+export const { setServiceProviders, setSelectedProvider, addReviewToProvider, deleteReviewFromProvider} = serviceProvidersSlice.actions;
 
 export default serviceProvidersSlice.reducer;

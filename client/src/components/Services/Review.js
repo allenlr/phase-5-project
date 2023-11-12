@@ -5,6 +5,7 @@ import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { user } from '../User/userSlice';
 import { setServiceProviders } from './serviceProvidersSlice';
 import { setError } from '../errorSlice';
+import { deleteReviewThunk } from './deleteReviewThunk';
 
 function Review({setReviewsList, reviewsList, review, providerId, onDelete, renderStars, renderEditableStars}){
     
@@ -13,7 +14,6 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
     const error = useSelector(state => state.error.currentError)
     const serviceProviders = useSelector(state => state.serviceProviders.providers)
     const [comment, setComment] = useState(review?.comment);
-    // const [error, setError] = useState(null)
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [editing, setEditing] = useState(false)
     const [rating, setRating] = useState(review.rating)
@@ -96,24 +96,12 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
     
 
     function handleReviewDelete() {
-        fetch(`/service_providers/${providerId}/reviews/${review.id}`, {
-            credentials: "include",
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        })
-        .then((r) => {
-            if(r.ok) {
+        dispatch(deleteReviewThunk(providerId, review.id))
+        
+            if(error === null) {
                 onDelete(review.id)
                 
-            } else {
-                return r.json().then(errorJson => {
-                    throw new Error(errorJson.errors.join(", ") || "Failed to delete comment");
-                });
-            }
-        })
-        .catch((error) => dispatch(setError(error.message)))
+            } 
     }
 
     return(

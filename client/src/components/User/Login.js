@@ -56,8 +56,6 @@ function Login(){
             })
     }
 
-    console.log(error)
-
     return(
         <div className="login-div">
             <h1 id="login-header">

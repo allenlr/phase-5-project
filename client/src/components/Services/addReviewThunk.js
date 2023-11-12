@@ -1,12 +1,13 @@
-import { addReviewToProvider, setSelectedProvider } from "./serviceProvidersSlice";
+import { addReviewToProvider } from "./serviceProvidersSlice";
 import { updateServiceProviderInServiceType } from "./serviceTypesSlice";
 import { setError } from "../errorSlice";
 import { user } from "../User/userSlice";
-import { useSelector } from "react-redux";
 
 export const addReviewThunk = (providerId, reviewData, serviceTypeId) => async (dispatch, getState) => {
     
     try {
+        const currentUser = getState().user.currentUser;
+
         const response = await fetch(`/service_providers/${providerId}/reviews`, {
             credentials: "include",
             method: "POST",
@@ -23,9 +24,21 @@ export const addReviewThunk = (providerId, reviewData, serviceTypeId) => async (
 
         const newReviewData = await response.json();
 
+        const reviewToAdd = {
+            comment: newReviewData.comment,
+            date: newReviewData.date,
+            id: newReviewData.id,
+            rating: newReviewData.rating,
+            service_provider_id: newReviewData.service_provider_id,
+            user_id: newReviewData.user_id,
+            username: newReviewData.username 
+        };
+        
+
+
         dispatch(addReviewToProvider({
             providerId: providerId,
-            review: newReviewData
+            review: reviewToAdd
         }));
 
         const updatedState = getState();
@@ -38,7 +51,7 @@ export const addReviewThunk = (providerId, reviewData, serviceTypeId) => async (
             }));
         }
 
-        const currentUser = getState().user.currentUser;
+        
         if(currentUser?.id === newReviewData.user_id){
             const updatedUser = {
                 ...currentUser,
@@ -50,6 +63,6 @@ export const addReviewThunk = (providerId, reviewData, serviceTypeId) => async (
         
         
     } catch (error) {
-        dispatch(setError(error.toString));
+        dispatch(setError(error.message));
     }
 }

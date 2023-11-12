@@ -29,8 +29,10 @@ function ServiceProvider({provider}){
             const totalRating = updatedProvider.reviews.reduce((acc, review) => acc + review.rating, 0);
             const avgRating = updatedProvider.reviews.length ? totalRating / updatedProvider.reviews.length : 0;
             setAverageRating(avgRating);
+            console.log(updatedProvider)
         }
-    }, [provider.id, dispatch]);
+    }, [updatedProvider]);
+
 
     function handleReviewCancel(){
         setNewReview("")
@@ -149,6 +151,7 @@ function ServiceProvider({provider}){
                                 renderStars={renderStars}
                                 setNewReviewRating={setNewReviewRating}
                                 renderEditableStars={renderEditableStars}
+                                serviceTypeId={provider.service_type_id}
                             />
                     )}
                     )}
