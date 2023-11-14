@@ -29,6 +29,11 @@ function ServiceProviders({serviceType}){
                     </div>
                 )
             })}
+            <div className="black-background-container">
+                <div className="location-button-container">
+                    <button id="location-search-button">Search by location</button>
+                </div>
+            </div>
 
         </div>
     )
