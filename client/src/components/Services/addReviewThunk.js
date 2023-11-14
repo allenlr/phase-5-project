@@ -41,8 +41,7 @@ export const addReviewThunk = (providerId, reviewData, serviceTypeId) => async (
             review: reviewToAdd
         }));
 
-        const updatedState = getState();
-        const updatedProvider = updatedState.serviceProviders.providers.find(p => p.id === providerId);
+        const updatedProvider = getState().serviceProviders.providers.find(p => p.id === providerId);
 
         if(updatedProvider) {
             dispatch(updateServiceProviderInServiceType({
