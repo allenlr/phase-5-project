@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import "./Register.css"
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
+import { user } from './userSlice';
+import { setError } from '../errorSlice';
 
 function Register(){
     const error = useSelector(state => state.error.currentError)
@@ -26,7 +27,30 @@ function Register(){
     }
 
     function handleRegisterSubmit(){
-
+        fetch("/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application.json"
+            },
+            body: JSON.stringify(signupForm)
+        })
+            .then(response => {
+                if (!response.ok){
+                    return response.json((data) => {
+                        throw new Error(data.error || "Failed to create user")
+                    })
+                } else {
+                    return response.json()
+                }
+            })
+            .then((newUser) => {
+                dispatch(user(newUser));
+                dispatch(setError(null))
+                navigate('/')
+            })
+            .catch((error) => {
+                dispatch(setError(error.message))
+            })
     }
 
     return(
