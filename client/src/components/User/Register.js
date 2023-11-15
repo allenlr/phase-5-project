@@ -30,7 +30,10 @@ function Register(){
     }
 
     return(
-        <div className="register-div">
+        <div 
+            className="register-div"
+            style={{marginLeft: "90px"}}
+        >
             <div>
                 <form id="registration-form" onSubmit={handleRegisterSubmit}>
                     <div className="register-container">
