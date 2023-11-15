@@ -13,7 +13,7 @@
 }
 
 
-.login-div {
+.login-div, .register-div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -78,14 +78,14 @@ button.nav-link:hover {
     color: #facc37
 }
 
-.profile-div{
+.profile-div, .register-div{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 1750px;
 }
 
-.profile-information-div, .profile-reviews-div {
+.profile-information-div, .profile-reviews-div{
     display: flex;
     flex-direction: row;
 }
@@ -109,14 +109,14 @@ button.nav-link:hover {
     margin-top: -10px;
 }
 
-#edit-user-form, .profile-reviews-container {
+#edit-user-form, .profile-reviews-container, #registration-form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 450px;
 }
 
-.profile-container{
+.profile-container, .register-container{
     margin-top: 75px;
     width: 80%;
     border: 1px solid #4b4b4b;
@@ -180,7 +180,7 @@ button.nav-link:hover {
     padding: 1px;
 }
 
-#save-changes-button{
+#save-changes-button, #registration-submit-button{
     width: 80px;
     color: #ffffff;
     background-color: #006674;
@@ -219,7 +219,7 @@ button.nav-link:hover {
 
 
 #login-button{
-    background: #1f1f1fb4;
+    background: #303030b4;
     border: none;
     color:#fff;
     font-size: 20px;
