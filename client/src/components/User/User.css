@@ -19,6 +19,7 @@
     align-items: center;
     justify-content: center;
     margin-top: 190px;
+    margin-right:50px;
 }
 
 #login-header{
@@ -208,4 +209,62 @@ button.nav-link:hover {
     padding: 10px;
     border: 1px solid #008394;
     width: 94%;
+}
+.login-button-container{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 200%;
+}
+
+
+#login-button{
+    background: #1f1f1fb4;
+    border: none;
+    color:#fff;
+    font-size: 20px;
+    width: 100%;
+    border-radius: 2px;
+}
+
+#login-button:hover{
+    /* color:#facc37; */
+    background:#006674
+}
+
+.login-button-container{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: end;
+    width: 100%;
+}
+
+#sign-up-button{
+    margin-top: 20px;
+    background: none;
+    border:none;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 13.3px;
+}
+
+#forgot-password-button{
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+#sign-up-button, #forgot-password-button{
+    margin-top: 15px;
+    font-family: Arial, sans-serif;
+}
+
+#sign-up-button:hover, #forgot-password-button:hover{
+    color: #facc37;
 }

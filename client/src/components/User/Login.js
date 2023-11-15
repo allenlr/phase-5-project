@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { loginRequest, user } from './userSlice'
 import { setError } from '../errorSlice';
+import { Link } from 'react-router-dom';
 
 function Login(){
     const error = useSelector(state => state.error.currentError)
@@ -59,7 +60,7 @@ function Login(){
     return(
         <div className="login-div">
             <h1 id="login-header">
-                Login
+                Log In
             </h1>
             <br />
             <br />
@@ -94,7 +95,13 @@ function Login(){
                 </div>
                 <br/>
                 <br/>
-                <button type="submit" id="login-button">Login</button>
+                <div className="login-button-container">
+                    <button type="submit" id="login-button">Log In</button>
+                    <div className="sign-up-change-password-button-container">
+                        <Link to="/register" id="sign-up-button">Sign-up/Register</Link>
+                        <button id="forgot-password-button">Forgot Password?</button>
+                    </div>
+                </div>
             </form>
 
         </div>

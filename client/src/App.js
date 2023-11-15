@@ -10,6 +10,7 @@ import ServiceTypes from './components/Services/ServiceTypes';
 import Login from './components/User/Login';
 import ServiceProviders from './components/Services/ServiceProviders';
 import Profile from './components/User/Profile';
+import Register from './components/User/Register';
 import { setError } from './components/errorSlice';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/account" element={<Account />} />
           <Route path="/services" element={<ServiceTypes />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/service_providers" element={<ServiceProviders serviceType={selectedServiceType}/>} />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
