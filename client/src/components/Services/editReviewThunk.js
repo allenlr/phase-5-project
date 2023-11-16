@@ -1,7 +1,7 @@
 import { editReviewInProvider } from "./serviceProvidersSlice";
 import { updateServiceProviderInServiceType } from "./serviceTypesSlice";
 import { setError } from "../errorSlice";
-import { user } from "../User/userSlice";
+import { updateUser } from "../User/userSlice";
 
 export const editReviewThunk = (providerId, reviewData, reviewId, serviceTypeId) => async (dispatch, getState) => {
 
@@ -48,7 +48,7 @@ export const editReviewThunk = (providerId, reviewData, reviewId, serviceTypeId)
             ...currentUser,
             reviews: [...currentUser.reviews, newReviewData]
         };
-        dispatch(user(updatedUser))
+        dispatch(updateUser(updatedUser))
 
     } catch (error) {
             dispatch(setError(error.message));

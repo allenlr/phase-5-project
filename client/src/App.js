@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { useSelector } from 'react-redux'
@@ -11,7 +11,7 @@ import Login from './components/User/Login';
 import ServiceProviders from './components/Services/ServiceProviders';
 import Profile from './components/User/Profile';
 import Register from './components/User/Register';
-import { setError } from './components/errorSlice';
+
 
 function App() {
   const selectedServiceType = useSelector(state => state.serviceTypes.selectedServiceType)
@@ -23,7 +23,7 @@ function App() {
       
       <Router>
         <Navbar />
-        {error && <span id="error-handle" style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>{error}</span>}
+        {error && <span id="error-handle" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight:"60px"}}>{error}</span>}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/account" element={<Account />} />

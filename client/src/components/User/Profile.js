@@ -1,8 +1,8 @@
 import '../Services/Services.css'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { updateUser } from './userSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { user } from './userSlice';
 import { setSelectedProvider } from '../Services/serviceProvidersSlice';
 import { setSelectedServiceType } from '../Services/serviceTypesSlice';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { setError } from '../errorSlice';
 function Profile(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const currentUser = useSelector(state => state.user.currentUser)
+    const currentUser = useSelector(state => state.user?.currentUser)
     const [showPassword, setShowPassword] = useState(false);
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
@@ -21,6 +21,12 @@ function Profile(){
         currentPassword: "",
         password: ""
     })
+
+    useEffect(() => {
+        if (!currentUser){
+            navigate('/')
+        }
+    }, [currentUser])
 
     function handleFormChanges(name, value) {
         setUserForm(prevForm => ({
@@ -61,7 +67,7 @@ function Profile(){
                 }
             })
             .then(data => {
-                dispatch(user(data))
+                dispatch(updateUser(data))
                 setShowSuccessMessage(true)
                 dispatch(setError(null))
             })
@@ -112,7 +118,7 @@ function Profile(){
                 </div>
                 <div>
                     <div className="success-or-error-messages">
-                        {showSuccessMessage && <div style={{ color: 'rgb(0, 83, 94)' }}>Changes Saved</div>}
+                        {showSuccessMessage && <div style={{ color: 'rgb(0, 120, 0)', marginLeft: "30px" }}>Changes Saved</div>}
                         {/* {error && <div id="error-handle">{error}</div>} */}
                     </div>
                     <form id="edit-user-form" onSubmit={handleUserChangesSubmit}>

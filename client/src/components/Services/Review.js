@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Services.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
-import { user } from '../User/userSlice';
+import { updateUser } from '../User/userSlice';
 import { setServiceProviders } from './serviceProvidersSlice';
 import { setError } from '../errorSlice';
 import { deleteReviewThunk } from './deleteReviewThunk';
@@ -48,7 +48,7 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
             }
         })
         .then((updatedReview) => {
-            dispatch(user({
+            dispatch(updateUser({
                 ...currentUser,
                 reviews: currentUser.reviews.map((item) => {
                     if (item.id === updatedReview.id){

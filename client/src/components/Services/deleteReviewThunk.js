@@ -1,7 +1,7 @@
 import { deleteReviewFromProvider } from "./serviceProvidersSlice";
 import { updateServiceProviderInServiceType } from "./serviceTypesSlice";
 import { setError } from "../errorSlice";
-import { user } from "../User/userSlice";
+import { updateUser } from "../User/userSlice";
 
 export const deleteReviewThunk = (providerId, reviewId, serviceTypeId) => async (dispatch, getState) => {
 
@@ -37,7 +37,7 @@ export const deleteReviewThunk = (providerId, reviewId, serviceTypeId) => async 
                 ...currentUser,
                 reviews: currentUser.reviews.filter(review => review.id !== reviewId)
             }
-            dispatch(user(updatedUser))
+            dispatch(updateUser(updatedUser))
         }
     } catch(error){
         dispatch(setError(error.message));

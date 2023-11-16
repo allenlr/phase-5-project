@@ -7,7 +7,6 @@ import { logout } from './userSlice'
 import { setError } from '../errorSlice';
 
 function Account(){
-    const error = useSelector(state => state.error.currentError)
     const dropdownRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
     const navigate = useNavigate();

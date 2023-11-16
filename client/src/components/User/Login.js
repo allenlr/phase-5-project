@@ -1,14 +1,13 @@
 import "./User.css"
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { loginRequest, user } from './userSlice'
+import { loginRequest, updateUser } from './userSlice'
 import { setError } from '../errorSlice';
 import { Link } from 'react-router-dom';
 
 function Login(){
-    const error = useSelector(state => state.error.currentError)
     const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false);
     const [loginForm, setLoginForm] = useState({
@@ -48,7 +47,7 @@ function Login(){
                 }
             })
             .then((userData) => {
-                dispatch(user(userData));
+                dispatch(updateUser(userData));
                 dispatch(setError(null))
                 navigate('/')
             })
@@ -99,7 +98,6 @@ function Login(){
                     <button type="submit" id="login-button">Log In</button>
                     <div className="sign-up-change-password-button-container">
                         <Link to="/register" id="sign-up-button">Sign-up/Register</Link>
-                        <button id="forgot-password-button">Forgot Password?</button>
                     </div>
                 </div>
             </form>
