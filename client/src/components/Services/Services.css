@@ -190,6 +190,8 @@
 }
 .black-background-container{
     display: flex;
+    flex-direction: column;
+    align-items:center;
     width: 105%;
     height: 100%;
     background-color: black;
@@ -201,15 +203,30 @@
 
 .location-button-container{
     display: flex;
-    justify-content: flex-end;
-    width: 53.5%;
-    
+    justify-content: center;
 }
 
 #location-search-button{
     margin-top: 20px;
+    margin-right: 100px;
     background: none;
     border:none;
     color: #fff;
     cursor: pointer;
+}
+
+.zip-search-container{
+    display: flex;
+    flex-direction: row;
+    margin-left: 158px;
+
+}
+
+#zip-search-input{
+    margin-top: 20px;
+    width: 25%;
+}
+
+#location-search-button{
+    margin-left: 10px
 }

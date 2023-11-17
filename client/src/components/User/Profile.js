@@ -119,7 +119,6 @@ function Profile(){
                 <div>
                     <div className="success-or-error-messages">
                         {showSuccessMessage && <div style={{ color: 'rgb(0, 120, 0)', marginLeft: "30px" }}>Changes Saved</div>}
-                        {/* {error && <div id="error-handle">{error}</div>} */}
                     </div>
                     <form id="edit-user-form" onSubmit={handleUserChangesSubmit}>
                         <div className="profile-container">

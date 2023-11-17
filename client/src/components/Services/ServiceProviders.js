@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setServiceProviders } from './serviceProvidersSlice'
 import ServiceProvider from './ServiceProvider'
@@ -6,9 +6,9 @@ import ServiceProvider from './ServiceProvider'
 
 function ServiceProviders({serviceType}){
     const dispatch = useDispatch()
-    const error = useSelector(state => state.error.currentError)
     const serviceProviders = useSelector(state => state.serviceProviders.providers)
     const selectedServiceProvider = useSelector(state => state.serviceProviders.selectedProvider)
+    const [locationSearch, setLocationSearch] = useState(false)
 
     useEffect(() => {
         dispatch(setServiceProviders([])); 
@@ -31,10 +31,18 @@ function ServiceProviders({serviceType}){
             })}
             <div className="black-background-container">
                 <div className="location-button-container">
-                    <button id="location-search-button">Search by location</button>
+                    <button id="location-search-button" onClick={() => setLocationSearch(prevState => !prevState)}>Search by Location</button>
+                    
                 </div>
+                
+                    {locationSearch && 
+                        <div className="zip-search-container">
+                            <input id="zip-search-input" placeholder="Enter zipcode"></input>
+                            <button id="location-search-button">Search</button>
+                        </div>
+                    }
             </div>
-
+            
         </div>
     )
 }
