@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setServiceProviders } from './serviceProvidersSlice'
 import ServiceProvider from './ServiceProvider'
+import { setError } from '../errorSlice'
 
 
 function ServiceProviders({serviceType}){
@@ -9,6 +10,8 @@ function ServiceProviders({serviceType}){
     const serviceProviders = useSelector(state => state.serviceProviders.providers)
     const selectedServiceProvider = useSelector(state => state.serviceProviders.selectedProvider)
     const [locationSearch, setLocationSearch] = useState(false)
+    const [zipCode, setZipCode] = useState("")
+    const [distanceThreshold, setDistanceThreshold] = useState("All")
 
     useEffect(() => {
         dispatch(setServiceProviders([])); 
@@ -18,6 +21,32 @@ function ServiceProviders({serviceType}){
             dispatch(setServiceProviders(selectedServiceProvider))
         }
     }, [serviceType, dispatch])
+
+    function handleLocationSearch(){
+        fetch(`http://localhost:4000/service_providers/location/${zipCode}/${distanceThreshold}`, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(r => {
+            if (!r.ok){
+                return r.json().then(errorJson => {
+                    console.log(errorJson)
+                    throw new Error(errorJson.error || "Location search error")
+                })
+            } else {
+                return r.json();
+            }
+        })
+        .then(locatedServiceProviders => {
+            dispatch(setServiceProviders(locatedServiceProviders))
+            dispatch(setError(null))
+        })
+        .catch(error => {
+            dispatch(setError(error.message))
+        })
+    }
+
 
 
     return (
@@ -37,8 +66,27 @@ function ServiceProviders({serviceType}){
                 
                     {locationSearch && 
                         <div className="zip-search-container">
-                            <input id="zip-search-input" placeholder="Enter zipcode"></input>
-                            <button id="location-search-button">Search</button>
+                            <input 
+                                id="zip-search-input"
+                                type="text"
+                                placeholder="Enter zipcode" 
+                                value={zipCode} 
+                                onChange={(e) => setZipCode(e.target.value)}
+                            >
+                            </input>
+                            <select
+                                value={distanceThreshold}
+                                onChange={(e) => setDistanceThreshold(e.target.value)}
+                                id="distance-threshold-select"
+                            >
+                                <option value="All">All</option>
+                                <option value="5">5 miles</option>
+                                <option value="10">10 miles</option>
+                                <option value="20">20 miles</option>
+                                <option value="30">30 miles</option>
+                                <option value="50">50 miles</option>
+                            </select>
+                            <button id="search-submit-button" onClick={handleLocationSearch}>Search</button>
                         </div>
                     }
             </div>

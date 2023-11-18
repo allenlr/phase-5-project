@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     
   resources :service_providers, only: [:index, :show] do
     resources :reviews, only: [:index, :create, :update, :destroy, :show]
+    get "location/:zip_code/:distance", to: "service_providers#search_by_location"
   end
 
   resources :user_service_providers, only: [:create, :index, :show, :destroy]

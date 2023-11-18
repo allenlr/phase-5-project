@@ -208,25 +208,41 @@
 
 #location-search-button{
     margin-top: 20px;
-    margin-right: 100px;
+    margin-right: 90px;
     background: none;
     border:none;
-    color: #fff;
+    color: gray;
     cursor: pointer;
 }
 
 .zip-search-container{
     display: flex;
     flex-direction: row;
-    margin-left: 158px;
+    margin-left: 155px;
 
 }
 
 #zip-search-input{
     margin-top: 20px;
     width: 25%;
+    background: none;
+    color: #fff
 }
 
-#location-search-button{
-    margin-left: 10px
+#distance-threshold-select{
+    margin-top: 20px;
+    margin-left: 5px;
+    font-size: 10px;
+    width: 35px;
+    height: 25px;
+}
+
+#search-submit-button{
+    margin-top: 20px;
+    margin-right: 100px;
+    background: none;
+    border:none;
+    color: #fff;
+    cursor: pointer;
+    color: gray;
 }

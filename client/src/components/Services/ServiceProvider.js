@@ -33,7 +33,6 @@ function ServiceProvider({provider}){
         }
     }, [updatedProvider]);
 
-
     function handleReviewCancel(){
         setNewReview("")
         setWriteReview(false)
@@ -67,10 +66,6 @@ function ServiceProvider({provider}){
         }
         return stars;
     };
-
-    // const handleStarClick = (selectedRating) => {
-    //     setNewReviewRating(selectedRating)
-    // }
 
     const renderStars = (rating) => {
         let stars = [];
