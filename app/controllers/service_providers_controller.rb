@@ -13,7 +13,7 @@ class ServiceProvidersController < ApplicationController
 
     def search_by_location
         service_type_id = params[:service_type_id]
-        location = Geocoder.coordinates(params[:zip_code])
+        location = Geocoder.coordinates("#{params[:zip_code]}, US")
         distance_threshold = params[:distance]
         if location
             if distance_threshold.present? && distance_threshold != "All"
