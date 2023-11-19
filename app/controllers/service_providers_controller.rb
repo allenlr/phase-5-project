@@ -1,4 +1,5 @@
 class ServiceProvidersController < ApplicationController
+    
 
     def index
         service_providers = ServiceProvider.all
@@ -11,7 +12,6 @@ class ServiceProvidersController < ApplicationController
     end
 
     def search_by_location
-        byebug
         location = Geocoder.coordinates(params[:zip_code])
         distance_threshold = params[:distance]
         if location

@@ -23,11 +23,7 @@ function ServiceProviders({serviceType}){
     }, [serviceType, dispatch])
 
     function handleLocationSearch(){
-        fetch(`http://localhost:4000/service_providers/location/${zipCode}/${distanceThreshold}`, {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
+        fetch(`service_providers/location/${zipCode}/${distanceThreshold}`)
         .then(r => {
             if (!r.ok){
                 return r.json().then(errorJson => {
