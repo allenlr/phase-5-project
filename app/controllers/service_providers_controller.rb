@@ -12,14 +12,15 @@ class ServiceProvidersController < ApplicationController
     end
 
     def search_by_location
+        service_type_id = params[:service_type_id]
         location = Geocoder.coordinates(params[:zip_code])
         distance_threshold = params[:distance]
         if location
             if distance_threshold.present? && distance_threshold != "All"
                 distance_threshold = distance_threshold.to_i
-                service_providers = ServiceProvider.near(location, distance_threshold)
+                service_providers = ServiceProvider.where(service_type_id: service_type_id).near(location, distance_threshold)
             else
-                service_providers = ServiceProvider.all
+                service_providers = ServiceProvider.where(service_type_id: service_type_id)
             end
             render json: service_providers, status: :ok
         else

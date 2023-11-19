@@ -23,7 +23,7 @@ function ServiceProviders({serviceType}){
     }, [serviceType, dispatch])
 
     function handleLocationSearch(){
-        fetch(`service_providers/location/${zipCode}/${distanceThreshold}`)
+        fetch(`/${serviceType.id}/service_providers/location/${zipCode}/${distanceThreshold}`)
         .then(r => {
             if (!r.ok){
                 return r.json().then(errorJson => {
