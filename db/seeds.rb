@@ -107,7 +107,7 @@ user_ids.each do |user_id|
 end
 
 User.all.each do |user|
-    rand(1..3).times do
+    rand(2..7).times do
         Review.create!(
             user_id: user.id,
             service_provider_id: service_provider_ids.sample,
