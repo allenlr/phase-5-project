@@ -45,16 +45,17 @@ denver_zip_codes = [
 
 denver_zip_codes_data = {
   80202 => { latitude: 39.7515, longitude: -104.9968 },
-  80203 => { latitude: 39.7314, longitude: -104.9830 },
-  80204 => { latitude: 39.7365, longitude: -105.0021 },
-  80205 => { latitude: 39.7594, longitude: -104.9688 },
-  80206 => { latitude: 39.7231, longitude: -104.9562 },
-  80209 => { latitude: 39.7059, longitude: -104.9663 },
-  80210 => { latitude: 39.6766, longitude: -104.9647 },
-  80211 => { latitude: 39.7675, longitude: -105.0033 },
-  80212 => { latitude: 39.7736, longitude: -105.0482 },
-  80218 => { latitude: 39.7442, longitude: -104.9708 }
+  80903 => { latitude: 38.8339, longitude: -104.8214 },
+  80301 => { latitude: 40.0150, longitude: -105.0021 },
+  80521 => { latitude: 40.5853, longitude: -105.0844 },
+  81001 => { latitude: 38.2544, longitude: -104.6091 },
+  81601 => { latitude: 39.5505, longitude: -107.3248 },
+  81501 => { latitude: 39.0639, longitude: -108.5506 },
+  81301 => { latitude: 37.2753, longitude: -107.8801 },
+  81611 => { latitude: 39.1911, longitude: -106.8175 },
+  81657 => { latitude: 39.6403, longitude: -106.3742 }
 }
+
 
 10.times do |i|
     zipcode = denver_zip_codes[i % denver_zip_codes.size]
@@ -73,7 +74,7 @@ end
 service_types.each do |type|
     ServiceType.create!(
         name: type,
-        description: Faker::Lorem.paragraph
+        description: Faker::Company.catch_phrase
     )
 end
 
@@ -84,7 +85,7 @@ denver_zip_codes_data.each do |zipcode, coordinates|
     ServiceProvider.create!(
       service_type_id: service_type_ids.sample,
       business_name: Faker::Company.name,
-      description: Faker::Lorem.paragraph,
+      description: Faker::Company.catch_phrase,
       longitude: coordinates[:longitude],
       latitude: coordinates[:latitude],
       location: zipcode.to_s
