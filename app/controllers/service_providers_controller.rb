@@ -15,9 +15,10 @@ class ServiceProvidersController < ApplicationController
         service_type_id = params[:service_type_id]
         location = Geocoder.coordinates("#{params[:zip_code]}, US")
         distance_threshold = params[:distance]
+        
         if location
-            if distance_threshold.present? && distance_threshold != "All"
-                distance_threshold = distance_threshold.to_i
+            distance_threshold = distance_threshold.to_i if distance_threshold.present? && distance_threshold != "All"
+            if distance_threshold.present?
                 service_providers = ServiceProvider.where(service_type_id: service_type_id).near(location, distance_threshold)
             else
                 service_providers = ServiceProvider.where(service_type_id: service_type_id)

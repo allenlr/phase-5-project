@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import Review from './Review';
 import { setError } from '../errorSlice';
-import { user } from '../User/userSlice';
 import { addReviewThunk } from './addReviewThunk';
 
 
@@ -29,7 +28,6 @@ function ServiceProvider({provider}){
             const totalRating = updatedProvider.reviews.reduce((acc, review) => acc + review.rating, 0);
             const avgRating = updatedProvider.reviews.length ? totalRating / updatedProvider.reviews.length : 0;
             setAverageRating(avgRating);
-            console.log(updatedProvider)
         }
     }, [updatedProvider]);
 
@@ -38,6 +36,16 @@ function ServiceProvider({provider}){
         setWriteReview(false)
         setNewReviewRating(5)
     }
+
+    function writeReviewClick(){
+        if (currentUser){
+            setWriteReview(prevState => !prevState);
+            dispatch(setError(null))
+        } else {
+            dispatch(setError("Please log in to write a new review"))
+        }
+    }
+
 
     async function handleReviewPost() {
         const reviewData = {
@@ -111,6 +119,7 @@ function ServiceProvider({provider}){
                 <h3 className='provider-names' onClick={() => setShowDetails((prev) => !prev)}>
                     {provider?.business_name}
                 </h3>
+                
                 <h4 className="provider-rating">{getStars(averageRating)}</h4>
             </div>
             <p className='provider-descriptions'>
@@ -120,7 +129,7 @@ function ServiceProvider({provider}){
             {showDetails && (
                 <div>
                     <h4 className="provider-reviews-header">{`Reviews (${reviews?.length})`}</h4>
-                    <button className="write-review-button" onClick={() => setWriteReview((prevValue) => !prevValue)}>Write Review</button>
+                    <button className="write-review-button" onClick={writeReviewClick}>Write Review</button>
                     {currentUser && writeReview && (
                         <div>
                             <textarea placeholder="type review..." value={newReview} onChange={(e) => setNewReview(e.target.value)}></textarea>

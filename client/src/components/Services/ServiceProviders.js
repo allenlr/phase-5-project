@@ -27,7 +27,6 @@ function ServiceProviders({serviceType}){
         .then(r => {
             if (!r.ok){
                 return r.json().then(errorJson => {
-                    console.log(errorJson)
                     throw new Error(errorJson.error || "Location search error")
                 })
             } else {

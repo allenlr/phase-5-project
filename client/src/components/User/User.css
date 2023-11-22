@@ -31,8 +31,14 @@
 }
 
 #error-handle{
-    color: rgb(255, 70, 70)
+    color: rgb(255, 70, 70);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 60px;
 }
+
+
 
 
 button.nav-link {

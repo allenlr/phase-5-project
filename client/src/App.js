@@ -23,7 +23,7 @@ function App() {
       
       <Router>
         <Navbar />
-        {error && <span id="error-handle" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight:"60px"}}>{error}</span>}
+        {error && <span id="error-handle">{error}</span>}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/account" element={<Account />} />
