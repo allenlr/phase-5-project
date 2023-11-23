@@ -47,6 +47,19 @@ class UsersController < ApplicationController
 
     def destroy
         user = User.find_by(id: params[:id])
+
+        unless user 
+            return render json: { error: "User not found" }, status: :not_found
+        end
+
+        unless user_params[:currentPassword].present? && user.authenticate(params[:currentPassword])
+            return render json: { error: "Password is required for this action"}, status: :unprocessable_entity
+        end
+
+        unless user.id == session[:user_id]
+            return render json: {error: "Not Authorized"}, status: :unauthorized
+        end
+
         user.destroy
         head :no_content
     end

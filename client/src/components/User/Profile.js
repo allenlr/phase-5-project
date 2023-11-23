@@ -54,6 +54,7 @@ function Profile(){
 
         fetch(`/users/${currentUser.id}`, {
             method: "PATCH",
+            credentials: 'include',
             headers: {
                 "Content-Type": "application/json",
             },
@@ -85,7 +86,12 @@ function Profile(){
 
     function handleUserDelete(){
         fetch(`/users/${currentUser.id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ currentPassword: userForm.currentPassword }),
+            credentials: 'include'
         })
         .then(r => {
             if(!r.ok){
