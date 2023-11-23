@@ -13,13 +13,15 @@ import Profile from './components/User/Profile';
 import Register from './components/User/Register';
 
 
+
+
 function App() {
   const selectedServiceType = useSelector(state => state.serviceTypes.selectedServiceType)
   const error = useSelector(state => state.error?.currentError)
   
   
   return (
-    <div>
+    <div className="application">
       
       <Router>
         <Navbar />

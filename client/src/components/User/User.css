@@ -19,7 +19,11 @@
     align-items: center;
     justify-content: center;
     margin-top: 190px;
-    margin-right:50px;
+    /* margin-right:50px; */
+}
+
+.login-div{
+    margin-right: 80px;
 }
 
 #login-header{
@@ -280,4 +284,13 @@ button.nav-link:hover {
 #last-register-input{
     margin-top: -15px;
     margin-bottom: -5px;
+}
+
+#delete-account-button{
+    margin-top: 20px;
+    margin-left: 150px;
+    background: none;
+    border:none;
+    color: gray;
+    cursor: pointer;
 }

@@ -1,12 +1,17 @@
 import '../Services/Services.css'
 import React, { useEffect, useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { updateUser } from './userSlice';
+import { updateUser, logout } from './userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedProvider } from '../Services/serviceProvidersSlice';
 import { setSelectedServiceType } from '../Services/serviceTypesSlice';
 import { useNavigate } from 'react-router-dom';
 import { setError } from '../errorSlice';
+import { Button, Modal } from 'react-bootstrap';
+import '../../custom-bootstrap.scss';
+
+
+
 
 function Profile(){
     const navigate = useNavigate();
@@ -15,6 +20,7 @@ function Profile(){
     const [showPassword, setShowPassword] = useState(false);
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false)
     const [userForm, setUserForm] = useState({
         username: currentUser?.username,
         email: currentUser?.email,
@@ -75,6 +81,25 @@ function Profile(){
                 dispatch(setError(error.message))
             })
 
+    }
+
+    function handleUserDelete(){
+        fetch(`/users/${currentUser.id}`, {
+            method: 'DELETE'
+        })
+        .then(r => {
+            if(!r.ok){
+                return r.json().then(data => {
+                    throw new Error(data.error)
+                })
+            } else {
+                dispatch(logout())
+                navigate('/')
+            }
+        })
+        .catch(error => {
+            dispatch(setError(error.message))
+        })
     }
 
 
@@ -185,6 +210,22 @@ function Profile(){
                             </div>
                         </div>
                         <button type="submit" id="save-changes-button">Save</button>
+                        <Button variant="danger" id="delete-account-button" onClick={() => setShowConfirmDialog(true)}>
+                            Delete Account
+                        </Button>
+
+                            <Modal show={showConfirmDialog} onHide={() => setShowConfirmDialog(false)}>
+                                <Modal.Body>Are you sure you want to delete your account? This action cannot be undone.
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={() => setShowConfirmDialog(false)}>
+                                        Cancel
+                                    </Button>
+                                    <Button variant="danger" onClick={handleUserDelete}>
+                                        Delete
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
                     </form>
                 </div>
             </div>
@@ -203,7 +244,7 @@ function Profile(){
                                             <span to="/service_providers" className='service-names' onClick={() => handleServiceProviderClick(review.service_provider.id)}>
                                                 {review.service_provider.business_name} Review
                                             </span>
-                                            <span className="comment-timestamp">{review.date}</span>
+                                            <span className="comment-timestamp" style={{marginTop: '17px'}}>{review.date}</span>
                                         </div>
                                             <div className="comment-star-wrapper">
                                                     <p>{review.comment}</p>

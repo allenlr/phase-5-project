@@ -45,6 +45,12 @@ class UsersController < ApplicationController
         end
     end
 
+    def destroy
+        user = User.find_by(id: params[:id])
+        user.destroy
+        head :no_content
+    end
+
     def user_accessed_service_provider
         service_provider = ServiceProvider.find(params[:service_provider_id])
         render json: service_provider, include: ['reviews'], status: :ok
