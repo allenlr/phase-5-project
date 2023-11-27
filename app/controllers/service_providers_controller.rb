@@ -17,9 +17,9 @@ class ServiceProvidersController < ApplicationController
         distance_threshold = params[:distance]
         
         if location
-            distance_threshold = distance_threshold.to_i if distance_threshold.present? && distance_threshold != "All"
-            if distance_threshold.present?
-                service_providers = ServiceProvider.where(service_type_id: service_type_id).near(location, distance_threshold)
+            distance_threshold = distance_threshold.to_i if 
+            if distance_threshold.present? && distance_threshold != "All"
+                service_providers = ServiceProvider.where(service_type_id: service_type_id).near(location, distance_threshold.to_i)
             else
                 service_providers = ServiceProvider.where(service_type_id: service_type_id)
             end
