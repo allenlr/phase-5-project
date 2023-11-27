@@ -17,6 +17,7 @@ function Profile(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user?.currentUser)
+    const loading = useSelector(state => state.user.loading)
     const [showPassword, setShowPassword] = useState(false);
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
@@ -29,7 +30,7 @@ function Profile(){
     })
 
     useEffect(() => {
-        if (!currentUser){
+        if (!currentUser && loading){
             navigate('/')
         }
     }, [currentUser])

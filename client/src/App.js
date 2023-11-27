@@ -11,7 +11,7 @@ import Login from './components/User/Login';
 import ServiceProviders from './components/Services/ServiceProviders';
 import Profile from './components/User/Profile';
 import Register from './components/User/Register';
-import { updateUser } from './components/User/userSlice';
+import { updateUser, loginRequest } from './components/User/userSlice';
 import { setError } from './components/errorSlice';
 
 
@@ -36,6 +36,7 @@ function App() {
     })
     .then(user => {
       dispatch(updateUser(user))
+      dispatch(loginRequest())
     })
     .catch(error => {
       dispatch(setError(error.message))
