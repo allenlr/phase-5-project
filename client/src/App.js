@@ -1,8 +1,8 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 import Account from './components/User/Account';
@@ -11,6 +11,8 @@ import Login from './components/User/Login';
 import ServiceProviders from './components/Services/ServiceProviders';
 import Profile from './components/User/Profile';
 import Register from './components/User/Register';
+import { updateUser } from './components/User/userSlice';
+import { setError } from './components/errorSlice';
 
 
 
@@ -18,6 +20,27 @@ import Register from './components/User/Register';
 function App() {
   const selectedServiceType = useSelector(state => state.serviceTypes.selectedServiceType)
   const error = useSelector(state => state.error?.currentError)
+  const dispatch = useDispatch();
+  const currentUser = useSelector(state => state.user.currentUser)
+
+  useEffect(() => {
+    fetch(`/users/${currentUser?.id}`)
+    .then(r => {
+      if(!r.ok){
+        return r.json().then(data => {
+          throw new Error(data.error)
+        })
+      } else {
+        return r.json()
+      }
+    })
+    .then(user => {
+      dispatch(updateUser(user))
+    })
+    .catch(error => {
+      dispatch(setError(error.message))
+    })
+  }, [currentUser?.id])
   
   
   return (
