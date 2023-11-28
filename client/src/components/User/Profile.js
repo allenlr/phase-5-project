@@ -244,23 +244,27 @@ function Profile(){
                 <div>
                     <div className="profile-reviews-container">
                         <div className="profile-container">
-                            {currentUser && currentUser?.reviews && currentUser?.reviews?.map((review) => {
-                                return (
-                                    <div key={review.id} className="profile-review">
-                                        <div className="comment-header">
-                                            <span to="/service_providers" className='service-names' onClick={() => handleServiceProviderClick(review.service_provider.id)}>
-                                                {review.service_provider.business_name} Review
-                                            </span>
-                                            <span className="comment-timestamp" style={{marginTop: '17px'}}>{review.date}</span>
-                                        </div>
-                                            <div className="comment-star-wrapper">
-                                                    <p>{review.comment}</p>
-                                                
-                                                    <span className="star-span">{getStars(review.rating)}</span>
+                            {currentUser && currentUser?.reviews && currentUser?.reviews.length > 0 ? (
+                                currentUser?.reviews?.map((review) => {
+                                    return (
+                                        <div key={review.id} className="profile-review">
+                                            <div className="comment-header">
+                                                <span to="/service_providers" className='service-names' onClick={() => handleServiceProviderClick(review.service_provider.id)}>
+                                                    {review.service_provider.business_name} Review
+                                                </span>
+                                                <span className="comment-timestamp" style={{marginTop: '17px'}}>{review.date}</span>
                                             </div>
-                                    </div>
-                                )
-                            })}
+                                                <div className="comment-star-wrapper">
+                                                        <p>{review.comment}</p>
+                                                    
+                                                        <span className="star-span">{getStars(review.rating)}</span>
+                                                </div>
+                                        </div>
+                                    )
+                                })
+                            ) : (
+                                <div>No Reviews Yet!</div>
+                            )}
                             
                         </div>
                     </div>
