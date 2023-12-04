@@ -1,18 +1,22 @@
 import React, {useState, useEffect} from 'react'
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 function AppointmentForm(){
+    const navigate = useNavigate();
     const serviceProvider = useSelector(state => state.serviceProviders.selectedProvider)
     const currentUser = useSelector(state => state.user.currentUser)
 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState('');
 
-    // useEffect(() => {
-    //     console.log(serviceProvider, currentUser)
-    // }, [])
+    useEffect(() => {
+        if(!serviceProvider || !currentUser){
+            navigate('/')
+        }
+    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault();
