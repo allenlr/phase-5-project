@@ -44,7 +44,7 @@
 .provider-name-rating-wrapper{
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .provider-names{
@@ -56,6 +56,7 @@
 
 .provider-rating{
     margin-left: 9px;
+    margin-top: 15px;
     color: #006674;
 }
 
@@ -245,4 +246,20 @@
     color: #fff;
     cursor: pointer;
     color: gray;
+}
+
+#schedule-button{
+    display: flex;
+    justify-content: center;
+    font-size: 13px;
+    margin-left: 10px;
+    text-decoration: none;
+    background: none;
+    border:none;
+    color: gray;
+    cursor: pointer;
+}
+
+#schedule-button:hover{
+    text-decoration: underline;
 }

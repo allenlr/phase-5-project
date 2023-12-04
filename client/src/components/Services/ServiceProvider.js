@@ -2,6 +2,7 @@ import './Services.css'
 import '../User/User.css'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Review from './Review';
 import { setError } from '../errorSlice';
 import { addReviewThunk } from './addReviewThunk';
@@ -120,7 +121,10 @@ function ServiceProvider({provider}){
                     {provider?.business_name}
                 </h3>
                 
+                
                 <h4 className="provider-rating">{getStars(averageRating)}</h4>
+                {showDetails && <Link id="schedule-button" to="/appointment_scheduling">Schedule Appointment</Link>}
+                {/* {showDetails && <span id="schedule-button">Schedule Appointment</span>} */}
             </div>
             <p className='provider-descriptions'>
                 {provider?.description}
