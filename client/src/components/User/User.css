@@ -280,3 +280,7 @@ button.nav-link:hover {
     color: gray;
     cursor: pointer;
 }
+
+#delete-account-button:hover{
+    color: #ffdd6fa6
+}
