@@ -11,7 +11,7 @@ import Login from './components/User/Login';
 import ServiceProviders from './components/Services/ServiceProviders';
 import Profile from './components/User/Profile';
 import Register from './components/User/Register';
-import Appointment from './components/Services/Appointment';
+import AppointmentForm from './components/Services/AppointmentForm';
 import { updateUser, loginRequest } from './components/User/userSlice';
 // import { setError } from './components/errorSlice';
 
@@ -59,7 +59,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/service_providers" element={<ServiceProviders serviceType={selectedServiceType}/>} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/appointment_scheduling" element={<Appointment/>} />
+          <Route path="/appointment_scheduling" element={<AppointmentForm/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

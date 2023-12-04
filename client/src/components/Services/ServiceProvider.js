@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Review from './Review';
 import { setError } from '../errorSlice';
 import { addReviewThunk } from './addReviewThunk';
+import { setSelectedProvider } from './serviceProvidersSlice';
 
 
 
@@ -62,7 +63,10 @@ function ServiceProvider({provider}){
             dispatch(setError(null));
     }
 
-    
+    function selectServiceProvider(){
+        dispatch(setSelectedProvider(provider))
+        setShowDetails((prev) => !prev)
+    }
 
     const getStars = (rating) => {
         let stars = [];
@@ -117,14 +121,13 @@ function ServiceProvider({provider}){
         <div>
             
             <div className="provider-name-rating-wrapper">
-                <h3 className='provider-names' onClick={() => setShowDetails((prev) => !prev)}>
+                <h3 className='provider-names' onClick={selectServiceProvider}>
                     {provider?.business_name}
                 </h3>
                 
                 
                 <h4 className="provider-rating">{getStars(averageRating)}</h4>
-                {showDetails && <Link id="schedule-button" to="/appointment_scheduling">Schedule Appointment</Link>}
-                {/* {showDetails && <span id="schedule-button">Schedule Appointment</span>} */}
+                {showDetails && <Link id="schedule-button" to="/appointment_scheduling">Schedule Appointment!</Link>}
             </div>
             <p className='provider-descriptions'>
                 {provider?.description}
