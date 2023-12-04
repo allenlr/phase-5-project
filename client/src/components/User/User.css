@@ -81,7 +81,7 @@ button.nav-link:hover {
     width: 1750px;
 }
 
-.profile-information-div, .profile-reviews-div, .register-div{
+.profile-information-div, .profile-reviews-div, .register-div, .profile-appointments-div{
     display: flex;
     flex-direction: row;
 }

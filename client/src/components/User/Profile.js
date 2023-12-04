@@ -140,6 +140,8 @@ function Profile(){
         }
         return stars;
     };
+    
+    console.log(currentUser.user_service_providers)
 
     return (
         <div className="profile-div">
@@ -264,6 +266,35 @@ function Profile(){
                                 })
                             ) : (
                                 <div>No Reviews Yet!</div>
+                            )}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="profile-appointments-div">
+                <div className="menu-description">
+                    <h2>User Appointments</h2>
+                    <p>View Prior and Upcoming Appointments</p>
+                </div>
+                <div>
+                    <div className="profile-reviews-container">
+                        <div className="profile-container">
+                            {currentUser && currentUser?.user_service_providers && currentUser?.user_service_providers.length > 0 ? (
+                                currentUser?.user_service_providers?.map((appointment) => {
+                                    return (
+                                        <div key={appointment.id} className="profile-review">
+                                            <div className="comment-header">
+                                                <span to="/service_providers" className='service-names' onClick={() => handleServiceProviderClick(appointment.service_provider_id)}>
+                                                    {appointment.business_name}
+                                                </span>
+                                                <span className="comment-timestamp" style={{marginTop: '17px'}}>{appointment.time_hired} on {appointment.date_hired}</span>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            ) : (
+                                <div>Nothing Scheduled Yet!</div>
                             )}
                             
                         </div>

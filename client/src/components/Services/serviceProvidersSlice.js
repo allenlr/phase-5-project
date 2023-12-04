@@ -44,9 +44,16 @@ const serviceProvidersSlice = createSlice({
                 })
             }
         },
+        addAppointmentToProvider: (state, action) => {
+            const { providerId, appointment } = action.payload;
+            const providerIndex = state.providers.findIndex(p => p.id === providerId);
+            if (providerIndex !== -1) {
+                state.providers[providerIndex].user_service_providers.push(appointment);
+            }
+        },
     },
 });
 
-export const { setServiceProviders, setSelectedProvider, addReviewToProvider, deleteReviewFromProvider, editReviewInProvider} = serviceProvidersSlice.actions;
+export const { setServiceProviders, setSelectedProvider, addReviewToProvider, deleteReviewFromProvider, editReviewInProvider, addAppointmentToProvider } = serviceProvidersSlice.actions;
 
 export default serviceProvidersSlice.reducer;

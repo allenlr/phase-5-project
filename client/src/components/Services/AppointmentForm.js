@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { setError } from '../errorSlice';
+import { addAppointmentThunk } from './addAppointmentThunk';
 
 function AppointmentForm(){
     const navigate = useNavigate();
@@ -22,36 +23,44 @@ function AppointmentForm(){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch(`/user_service_providers`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                service_provider_id: serviceProvider.id,
-                user_id: currentUser.id,
-                date_hired: selectedDate.toISOString().split('T')[0],
-                time_hired: selectedTime
-            })
-        })
-        .then(r => {
-            if(!r.ok){
-                return r.json().then(error => {
-                    throw new Error(error.message)
-                })
-            } else {
-                return r.json();
-            }
-        })
-        .then(data => {
-            console.log(data)
-            navigate(`/service_providers`);
-            dispatch(setError(null))
-        })
-        .catch(error => {
-            dispatch(setError(error.message))
-        })
+        const userServiceProviderData = {
+            service_provider_id: serviceProvider.id,
+            user_id: currentUser.id,
+            date_hired: selectedDate.toISOString().split('T')[0],
+            time_hired: selectedTime
+        }
+
+        dispatch(addAppointmentThunk(serviceProvider.id, userServiceProviderData, serviceProvider.service_type_id))
+        navigate('/service_providers')
+        // fetch(`/user_service_providers`, {
+        //     method: 'POST',
+        //     credentials: 'include',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         service_provider_id: serviceProvider.id,
+        //         user_id: currentUser.id,
+        //         date_hired: selectedDate.toISOString().split('T')[0],
+        //         time_hired: selectedTime
+        //     })
+        // })
+        // .then(r => {
+        //     if(!r.ok){
+        //         return r.json().then(error => {
+        //             throw new Error(error.message)
+        //         })
+        //     } else {
+        //         return r.json();
+        //     }
+        // })
+        // .then(() => {
+        //     navigate(`/service_providers`);
+        //     dispatch(setError(null))
+        // })
+        // .catch(error => {
+        //     dispatch(setError(error.message))
+        // })
     };
 
     function generateTimeSlots(startHour, endHour, intervalMinutes){
