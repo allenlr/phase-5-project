@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { setError } from '../errorSlice';
 
 function AppointmentForm(){
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const serviceProvider = useSelector(state => state.serviceProviders.selectedProvider)
     const currentUser = useSelector(state => state.user.currentUser)
 
@@ -20,7 +22,36 @@ function AppointmentForm(){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({selectedDate, selectedTime});
+        fetch(`/user_service_providers`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                service_provider_id: serviceProvider.id,
+                user_id: currentUser.id,
+                date_hired: selectedDate.toISOString().split('T')[0],
+                time_hired: selectedTime
+            })
+        })
+        .then(r => {
+            if(!r.ok){
+                return r.json().then(error => {
+                    throw new Error(error.message)
+                })
+            } else {
+                return r.json();
+            }
+        })
+        .then(data => {
+            console.log(data)
+            navigate(`/service_providers`);
+            dispatch(setError(null))
+        })
+        .catch(error => {
+            dispatch(setError(error.message))
+        })
     };
 
     function generateTimeSlots(startHour, endHour, intervalMinutes){
@@ -38,9 +69,6 @@ function AppointmentForm(){
     }
 
     const timeSlots = generateTimeSlots(9, 17, 30);
-    console.log(timeSlots);
-
-
 
     return(
         <div className="scheduling-div">
@@ -73,6 +101,7 @@ function AppointmentForm(){
                         })}
                     </select>
                 </div>
+                <button type="submit" id="appointment-submit-button">Submit</button>
             </form>
         </div>
     )
