@@ -14,11 +14,19 @@ class UserServiceProvidersController < ApplicationController
     end
 
     def create
-        @user_service_provider = UserServiceProvider.create!(user_service_provider_params)
-        if @user_service_provider.persisted?
-            render json: @user_service_provider, status: :created
+        date = user_service_provider_params[:date_hired]
+        time = user_service_provider_params[:time_hired]
+        provider_id = user_service_provider_params[:service_provider_id]
+
+        if UserServiceProvider.exists?(service_provider_id: provider_id, date_hired: date, time_hired: time)
+            render json: { error: "This time slot is already booked" }, status: :unprocessable_entity
         else
-            render json: { errors: @user_service_provider.errors.full_messages }, status: :unprocessable_entity
+            @user_service_provider = UserServiceProvider.create!(user_service_provider_params)
+            if @user_service_provider.persisted?
+                render json: @user_service_provider, status: :created
+            else
+                render json: { errors: @user_service_provider.errors.full_messages }, status: :unprocessable_entity
+            end
         end
     end
 
@@ -49,7 +57,7 @@ class UserServiceProvidersController < ApplicationController
     end
 
     def user_service_provider_params
-        params.permit(:user_id, :service_provider_id, :date_hired)
+        params.permit(:user_id, :service_provider_id, :date_hired, :time_hired)
     end
 
 end
