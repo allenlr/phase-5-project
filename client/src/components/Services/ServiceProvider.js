@@ -127,7 +127,7 @@ function ServiceProvider({provider}){
                 
                 
                 <h4 className="provider-rating">{getStars(averageRating)}</h4>
-                {showDetails && <Link id="schedule-button" to="/appointment_scheduling">Schedule Appointment!</Link>}
+                {showDetails && currentUser && <Link id="schedule-button" to="/appointment_scheduling">Schedule Appointment!</Link>}
             </div>
             <p className='provider-descriptions'>
                 {provider?.description}
