@@ -240,7 +240,7 @@ function Profile(){
             </div>
             <div className="profile-reviews-div">
                 <div className="menu-description">
-                    <h2>User Reviews</h2>
+                    <h2>Reviews</h2>
                     <p>View and Edit Reviews</p>
                 </div>
                 <div>
@@ -274,7 +274,7 @@ function Profile(){
             </div>
             <div className="profile-appointments-div">
                 <div className="menu-description">
-                    <h2>User Appointments</h2>
+                    <h2>Appointments</h2>
                     <p>View Prior and Upcoming Appointments</p>
                 </div>
                 <div>
