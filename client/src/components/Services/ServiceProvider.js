@@ -15,6 +15,7 @@ function ServiceProvider({provider}){
     const updatedProvider = useSelector(state =>
         state.serviceProviders.providers.find(p => p.id === provider.id)
     );
+    const selectedProvider = useSelector(state => state.serviceProviders.selectedProvider)
     const [reviews, setReviews] = useState(provider.reviews || [])
     const [showDetails, setShowDetails] = useState(false)
     const currentUser = useSelector(state => state.user.currentUser)
@@ -127,13 +128,13 @@ function ServiceProvider({provider}){
                 
                 
                 <h4 className="provider-rating">{getStars(averageRating)}</h4>
-                {showDetails && currentUser && <Link id="schedule-button" to="/appointment_scheduling">Schedule Appointment!</Link>}
+                {showDetails && currentUser && (provider.id === selectedProvider?.id) && <Link id="schedule-button" to="/appointment_scheduling">Schedule Appointment!</Link>}
             </div>
             <p className='provider-descriptions'>
                 {provider?.description}
             </p>
             
-            {showDetails && (
+            {showDetails && (provider.id === selectedProvider?.id) && (
                 <div>
                     <h4 className="provider-reviews-header">{`Reviews (${reviews?.length})`}</h4>
                     <button className="write-review-button" onClick={writeReviewClick}>Write Review</button>
