@@ -98,10 +98,13 @@ service_provider_ids = ServiceProvider.pluck(:id)
 
 user_ids.each do |user_id|
     2.times do 
+      time_hired = Time.now.beginning_of_day + rand(9..16).hours + rand(0..59).minutes
+
         UserServiceProvider.create!(
             user_id: user_id,
             service_provider_id: service_provider_ids.sample,
-            date_hired: Faker::Date.between(from: '2020-01-01', to: Date.today)
+            date_hired: Faker::Date.between(from: '2020-01-01', to: Date.today),
+            time_hired: time_hired.strftime("%H:%M")
         )
     end
 end
