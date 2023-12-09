@@ -118,6 +118,13 @@ function ServiceProvider({provider}){
         })
     }
 
+    function handleScheduleClick(e){
+        if(!currentUser){
+            e.preventDefault();
+            dispatch(setError(`Log in to schedule an appointment with ${provider.business_name}!`))
+        }
+    }
+
     return(
         <div>
             
@@ -128,7 +135,20 @@ function ServiceProvider({provider}){
                 
                 
                 <h4 className="provider-rating">{getStars(averageRating)}</h4>
-                {showDetails && currentUser && (provider.id === selectedProvider?.id) && <Link id="schedule-button" to="/appointment_scheduling">Schedule Appointment!</Link>}
+                {showDetails && (provider.id === selectedProvider?.id) && !!currentUser ? (
+                    <Link 
+                        id="schedule-button" 
+                        to="/appointment_scheduling">Schedule Appointment!
+                    </Link>
+                ) : (
+                    <span 
+                        onClick={handleScheduleClick}
+                        id="schedule-button"
+                        style={{ cursor: 'pointer', textDecoration: 'underline' }}
+                    >
+                        Schedule Appointment!
+                    </span>
+                )}
             </div>
             <p className='provider-descriptions'>
                 {provider?.description}
