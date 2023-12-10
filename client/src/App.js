@@ -25,23 +25,25 @@ function App() {
   const currentUser = useSelector(state => state.user.currentUser)
 
   useEffect(() => {
-    fetch(`/users/${currentUser?.id}`)
-    .then(r => {
-      if(!r.ok){
-        return r.json().then(data => {
-          throw new Error(data.error)
-        })
-      } else {
-        return r.json()
-      }
-    })
-    .then(user => {
-      dispatch(updateUser(user))
-      dispatch(loginRequest())
-    })
-    .catch(error => {
-      console.error(error.message)
-    })
+    if(currentUser?.id){
+      fetch(`/users/${currentUser?.id}`)
+      .then(r => {
+        if(!r.ok){
+          return r.json().then(data => {
+            throw new Error(data.error)
+          })
+        } else {
+          return r.json()
+        }
+      })
+      .then(user => {
+        dispatch(updateUser(user))
+        dispatch(loginRequest())
+      })
+      .catch(error => {
+        console.error(error.message)
+      })
+    }
   }, [currentUser?.id])
   
   
