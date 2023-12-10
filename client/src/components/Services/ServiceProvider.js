@@ -140,7 +140,7 @@ function ServiceProvider({provider}){
                         id="schedule-button" 
                         to="/appointment_scheduling">Schedule Appointment!
                     </Link>
-                ) : (
+                ) : showDetails && (provider.id === selectedProvider?.id) && (
                     <span 
                         onClick={handleScheduleClick}
                         id="schedule-button"

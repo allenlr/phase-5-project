@@ -17,6 +17,9 @@ const serviceTypesSlice = createSlice({
         setSelectedServiceType: (state, action) => {
             state.selectedServiceType = action.payload;
           },
+        setSelectedServiceTypeById: (state, action) => {
+            state.selectedServiceType = state.services.filter((service) => service.id === action.payload)
+        },
         addService: (state, action) => {
             state.services = [...state.services, action.payload]
         },
@@ -36,6 +39,6 @@ const serviceTypesSlice = createSlice({
     },
 });
 
-export const { getServices, setSelectedServiceType, addService, removeService, updateServiceProviderInServiceType } = serviceTypesSlice.actions;
+export const { getServices, setSelectedServiceType, addService, removeService, updateServiceProviderInServiceType, setSelectedServiceTypeById } = serviceTypesSlice.actions;
 
 export default serviceTypesSlice.reducer;

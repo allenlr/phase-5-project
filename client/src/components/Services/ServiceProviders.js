@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setServiceProviders } from './serviceProvidersSlice'
+import { setSelectedServiceTypeById } from './serviceTypesSlice'
 import ServiceProvider from './ServiceProvider'
 import { setError } from '../errorSlice'
 
 
 function ServiceProviders({serviceType}){
+    const navigate = useNavigate();
     const dispatch = useDispatch()
     const serviceProviders = useSelector(state => state.serviceProviders.providers)
     const selectedServiceProvider = useSelector(state => state.serviceProviders.selectedProvider)
@@ -23,30 +26,34 @@ function ServiceProviders({serviceType}){
     }, [serviceType, dispatch])
 
     function handleLocationSearch(){
-        fetch(`/${serviceType.id}/service_providers/location/${zipCode}/${distanceThreshold}`)
-        .then(r => {
-            if (!r.ok){
-                return r.json().then(errorJson => {
-                    throw new Error(errorJson.error || "Location search error")
-                })
-            } else {
-                return r.json();
-            }
-        })
-        .then(locatedServiceProviders => {
-            dispatch(setServiceProviders(locatedServiceProviders))
-            dispatch(setError(null))
-        })
-        .catch(error => {
-            dispatch(setError(error.message))
-        })
+        if(!!serviceType?.id){
+            fetch(`/${serviceType?.id}/service_providers/location/${zipCode}/${distanceThreshold}`)
+            .then(r => {
+                if (!r.ok){
+                    return r.json().then(errorJson => {
+                        throw new Error(errorJson.error || "Location search error")
+                    })
+                } else {
+                    return r.json();
+                }
+            })
+            .then(locatedServiceProviders => {
+                dispatch(setServiceProviders(locatedServiceProviders))
+                dispatch(setError(null))
+            })
+            .catch(error => {
+                dispatch(setError(error.message))
+            })
+        } else{
+            navigate('/services')
+        }
     }
 
 
 
     return (
         <div className="providers-container">
-            {serviceProviders.map((provider) => {
+            {serviceProviders?.map((provider) => {
                 return (
                     <div>
                         <ServiceProvider key={provider.id} provider={provider} />

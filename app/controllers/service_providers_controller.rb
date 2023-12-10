@@ -1,6 +1,5 @@
 class ServiceProvidersController < ApplicationController
     
-
     def index
         service_providers = ServiceProvider.all
         render json: service_providers, include: ['reviews'], status: :ok
@@ -16,16 +15,20 @@ class ServiceProvidersController < ApplicationController
         location = Geocoder.coordinates("#{params[:zip_code]}, US")
         distance_threshold = params[:distance]
         
-        if location
-            distance_threshold = distance_threshold.to_i if 
-            if distance_threshold.present? && distance_threshold != "All"
-                service_providers = ServiceProvider.where(service_type_id: service_type_id).near(location, distance_threshold.to_i)
+        if service_type_id
+            if location
+                distance_threshold = distance_threshold.to_i if 
+                if distance_threshold.present? && distance_threshold != "All"
+                    service_providers = ServiceProvider.where(service_type_id: service_type_id).near(location, distance_threshold.to_i)
+                else
+                    service_providers = ServiceProvider.where(service_type_id: service_type_id)
+                end
+                render json: service_providers, status: :ok
             else
-                service_providers = ServiceProvider.where(service_type_id: service_type_id)
+                render json: { errors: "Invalid zip code"}, status: :unprocessable_entity
             end
-            render json: service_providers, status: :ok
         else
-            render json: { errors: "Invalid zip code"}, status: :unprocessable_entity
+            render json: { errors: "Cannot search without service type"}, status: :unprocessable_entity
         end
     end
 

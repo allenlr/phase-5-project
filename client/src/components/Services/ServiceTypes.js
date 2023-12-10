@@ -1,7 +1,7 @@
 import './Services.css'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getServices, setSelectedServiceType, addService, removeService } from './serviceTypesSlice'
+import { getServices, setSelectedServiceType } from './serviceTypesSlice'
 import { Link } from 'react-router-dom';
 import { setError } from '../errorSlice';
 
