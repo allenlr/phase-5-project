@@ -181,10 +181,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   faker
-<<<<<<< HEAD
   geocoder
-=======
->>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
   listen (~> 3.3)
   pg
   puma (~> 5.0)
