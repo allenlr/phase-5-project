@@ -25,15 +25,6 @@ ActiveRecord::Base.connection.reset_pk_sequence!('users')
 
 
 
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
->>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
 service_types = [
     'Home Services',
     'Health & Wellness',
@@ -54,7 +45,6 @@ denver_zip_codes = [
 
 denver_zip_codes_data = {
   80202 => { latitude: 39.7515, longitude: -104.9968 },
-<<<<<<< HEAD
   80903 => { latitude: 38.8339, longitude: -104.8214 },
   80301 => { latitude: 40.0150, longitude: -105.0021 },
   80521 => { latitude: 40.5853, longitude: -105.0844 },
@@ -67,19 +57,6 @@ denver_zip_codes_data = {
 }
 
 
-=======
-  80203 => { latitude: 39.7314, longitude: -104.9830 },
-  80204 => { latitude: 39.7365, longitude: -105.0021 },
-  80205 => { latitude: 39.7594, longitude: -104.9688 },
-  80206 => { latitude: 39.7231, longitude: -104.9562 },
-  80209 => { latitude: 39.7059, longitude: -104.9663 },
-  80210 => { latitude: 39.6766, longitude: -104.9647 },
-  80211 => { latitude: 39.7675, longitude: -105.0033 },
-  80212 => { latitude: 39.7736, longitude: -105.0482 },
-  80218 => { latitude: 39.7442, longitude: -104.9708 }
-}
-
->>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
 10.times do |i|
     zipcode = denver_zip_codes[i % denver_zip_codes.size]
     username = ""
