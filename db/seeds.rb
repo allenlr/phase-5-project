@@ -97,11 +97,7 @@ end
 service_types.each do |type|
     ServiceType.create!(
         name: type,
-<<<<<<< HEAD
         description: Faker::Company.catch_phrase
-=======
-        description: Faker::Lorem.paragraph
->>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
     )
 end
 
@@ -112,11 +108,7 @@ denver_zip_codes_data.each do |zipcode, coordinates|
     ServiceProvider.create!(
       service_type_id: service_type_ids.sample,
       business_name: Faker::Company.name,
-<<<<<<< HEAD
       description: Faker::Company.catch_phrase,
-=======
-      description: Faker::Lorem.paragraph,
->>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
       longitude: coordinates[:longitude],
       latitude: coordinates[:latitude],
       location: zipcode.to_s
@@ -129,7 +121,6 @@ service_provider_ids = ServiceProvider.pluck(:id)
 
 user_ids.each do |user_id|
     2.times do 
-<<<<<<< HEAD
       time_hired = Time.now.beginning_of_day + rand(9..16).hours + rand(0..59).minutes
 
         UserServiceProvider.create!(
@@ -137,22 +128,12 @@ user_ids.each do |user_id|
             service_provider_id: service_provider_ids.sample,
             date_hired: Faker::Date.between(from: '2020-01-01', to: Date.today),
             time_hired: time_hired.strftime("%H:%M")
-=======
-        UserServiceProvider.create!(
-            user_id: user_id,
-            service_provider_id: service_provider_ids.sample,
-            date_hired: Faker::Date.between(from: '2020-01-01', to: Date.today)
->>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
         )
     end
 end
 
 User.all.each do |user|
-<<<<<<< HEAD
     rand(2..7).times do
-=======
-    rand(1..3).times do
->>>>>>> 36feb00 (create seed data for each model, edit database.yml file to utilize postgresql instead of sqlite3)
         Review.create!(
             user_id: user.id,
             service_provider_id: service_provider_ids.sample,
