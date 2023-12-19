@@ -11,7 +11,7 @@ function Home(){
                 {currentUser === null ? `Welcome to Servyces!` : `Welcome to Servyces, ${currentUser.username}!`}
             </div>
             <p className="home-p">
-                A Denver based app to find the people to help you get things done!
+                A Denver based app to find the people that will help you get things done!
             </p>
         </div>
     )
