@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   get "/:service_type_id/service_providers/location/:zip_code/:distance", to: "service_providers#search_by_location"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+
+
 end
