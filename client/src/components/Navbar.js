@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Account from './User/Account';
 import { setError } from './errorSlice';
+import { setMessage } from './errorSlice';
 import { useDispatch } from 'react-redux';
 
 
@@ -10,22 +11,26 @@ function Navbar(){
     const currentUser = useSelector(state => state.user.currentUser);
     const dispatch = useDispatch();
 
+    function resetCurrentMessages(){
+        dispatch(setError(null))
+        dispatch(setMessage(null))
+    }
 
     return (
         <nav className="navbar">
-            <Link to="/" className="navbar-brand" onClick={() => dispatch(setError(null))}>
+            <Link to="/" className="navbar-brand" onClick={resetCurrentMessages}>
                 Home
             </Link>
-            <Link to="/services" className="nav-link" onClick={() => dispatch(setError(null))}>
+            <Link to="/services" className="nav-link" onClick={resetCurrentMessages}>
                 Search Services
             </Link>
             {currentUser ? 
-                <div className="navbar-actions" onClick={() => dispatch(setError(null))}>
+                <div className="navbar-actions" onClick={resetCurrentMessages}>
                     <Account/>
                     
                 </div>
                 :
-                <Link to="/login" className="nav-link" onClick={() => dispatch(setError(null))}>
+                <Link to="/login" className="nav-link" onClick={resetCurrentMessages}>
                     Login/Register
                 </Link>
             }
