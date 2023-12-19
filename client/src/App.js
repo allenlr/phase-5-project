@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { useSelector, useDispatch } from 'react-redux'
@@ -24,6 +24,8 @@ function App() {
   const successMessage = useSelector(state => state.error?.currentMessage)
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.user.currentUser)
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     if(currentUser?.id){
@@ -46,6 +48,20 @@ function App() {
       })
     }
   }, [currentUser?.id])
+
+  useEffect(() => {
+    if (successMessage) {
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 4000);
+    }
+  }, [successMessage]);
+
+  useEffect(() => {
+    if (error) {
+      setShowError(true);
+      setTimeout(() => setShowError(false), 4000);
+    }
+  }, [error]);
   
   
   return (
@@ -53,8 +69,8 @@ function App() {
       
       <Router>
         <Navbar />
-        {error && <span id="error-handle">{error}</span>}
-        {successMessage && <span id="success-handle">{successMessage}</span>}
+        {showError && <span id="error-handle">{error}</span>}
+        {showSuccess && <span id="success-handle" className={successMessage ? 'active' : ''}>{successMessage} </span>}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/account" element={<Account />} />
