@@ -55,6 +55,12 @@
   display: flex;
 }
 
+.home-p{
+  margin-top: 300px;
+  margin-left: 50px;
+  font-size: 30px;
+}
+
 .navbar-actions{
   display: flex;
   align-items: center;
