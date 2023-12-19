@@ -38,8 +38,12 @@ function ServiceProviders({serviceType}){
                 }
             })
             .then(locatedServiceProviders => {
-                dispatch(setServiceProviders(locatedServiceProviders))
-                dispatch(setError(null))
+                if(locatedServiceProviders.length === 0){
+                    dispatch(setError("No Service Providers in this area. Try searching a different zip code or changing the distance of your search."))
+                } else {
+                    dispatch(setServiceProviders(locatedServiceProviders))
+                    dispatch(setError(null))
+                }
             })
             .catch(error => {
                 dispatch(setError(error.message))
