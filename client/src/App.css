@@ -70,3 +70,11 @@
   align-items: center;
   margin-right: 10px;
 }
+
+#success-handle{
+  color: rgb(0, 250, 250);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+}

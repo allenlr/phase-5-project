@@ -21,6 +21,7 @@ import { updateUser, loginRequest } from './components/User/userSlice';
 function App() {
   const selectedServiceType = useSelector(state => state.serviceTypes.selectedServiceType)
   const error = useSelector(state => state.error?.currentError)
+  const successMessage = useSelector(state => state.error?.currentMessage)
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.user.currentUser)
 
@@ -53,6 +54,7 @@ function App() {
       <Router>
         <Navbar />
         {error && <span id="error-handle">{error}</span>}
+        {successMessage && <span id="success-handle">{successMessage}</span>}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/account" element={<Account />} />

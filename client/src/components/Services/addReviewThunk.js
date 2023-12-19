@@ -18,6 +18,8 @@ export const addReviewThunk = (providerId, reviewData, serviceTypeId) => async (
         if(!response.ok){
             const errorData = await response.json();
             throw new Error(errorData.errors)
+        } else {
+            dispatch(setMessage("New Review Posted!"))
         }
         const newReviewData = await response.json();
         const reviewToAdd = {
