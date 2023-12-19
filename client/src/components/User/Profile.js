@@ -180,6 +180,25 @@ function Profile(){
                             </div>
                             <div className="input-group">
                                 <label>
+                                    New Password
+                                </label>
+                                <div className="input-button-wrapper">
+                                    <input 
+                                        type={showPassword ? "text" : "password"} 
+                                        name="password" value={userForm.password} 
+                                        onChange={(e) => handleFormChanges(e.target.name, e.target.value)}>
+                                    </input>
+                                    <button
+                                        className="hide-show-password-buttons"
+                                        type="button"
+                                        onClick={() => setShowPassword((prev) => !prev)}
+                                    >
+                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="input-group">
+                                <label>
                                     Current Password
                                 </label>
                                 <div className="input-button-wrapper">
@@ -197,25 +216,6 @@ function Profile(){
                                         {showCurrentPassword ? <FaEyeSlash /> : <FaEye />}
                                     </button>
                                 </div> 
-                            </div>
-                            <div className="input-group">
-                                <label>
-                                    New Password
-                                </label>
-                                <div className="input-button-wrapper">
-                                    <input 
-                                        type={showPassword ? "text" : "password"} 
-                                        name="password" value={userForm.password} 
-                                        onChange={(e) => handleFormChanges(e.target.name, e.target.value)}>
-                                    </input>
-                                    <button
-                                        className="hide-show-password-buttons"
-                                        type="button"
-                                        onClick={() => setShowPassword((prev) => !prev)}
-                                    >
-                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                    </button>
-                                </div>
                             </div>
                         </div>
                         <button type="submit" id="save-changes-button">Save</button>
