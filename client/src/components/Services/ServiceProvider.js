@@ -87,7 +87,8 @@ function ServiceProvider({provider}){
             stars.push(
                 <span 
                     key={i} 
-                    className="star" 
+                    className="star"
+                    style={{ color: i <= rating ? '#006674' : 'grey' }}
                 >
                     {i <= rating ? '★' : '☆'}
                 </span>
@@ -104,6 +105,7 @@ function ServiceProvider({provider}){
                     key={i} 
                     className="star" 
                     onClick={() => onRatingChange(i)}
+                    style={{ color: i <= rating ? '#006674' : 'grey' }}
                 >
                     {i <= rating ? '★' : '☆'}
                 </span>

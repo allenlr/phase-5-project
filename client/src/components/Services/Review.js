@@ -18,7 +18,6 @@ function Review({setReviewsList, reviewsList, review, providerId, onDelete, rend
     const [editing, setEditing] = useState(false)
     const [rating, setRating] = useState(review.rating)
     
-
     function handleEditClick() {
         setEditing((prevState) => !prevState)
     }
