@@ -2,7 +2,8 @@ import {createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     currentError: null,
-    currentMessage :null
+    currentMessage: null,
+    messageTimestamp: 0,
 };
 
 const errorSlice = createSlice({
@@ -14,6 +15,7 @@ const errorSlice = createSlice({
         },
         setMessage: (state, action) => {
             state.currentMessage = action.payload
+            state.messageTimestamp = Date.now();
         }
     },
 });

@@ -22,6 +22,7 @@ function App() {
   const selectedServiceType = useSelector(state => state.serviceTypes.selectedServiceType)
   const error = useSelector(state => state.error?.currentError)
   const successMessage = useSelector(state => state.error?.currentMessage)
+  const messageTimestamp = useSelector(state => state.error?.messageTimestamp);
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.user.currentUser)
   const [showSuccess, setShowSuccess] = useState(false);
@@ -52,17 +53,18 @@ function App() {
   useEffect(() => {
     if (successMessage) {
       setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 4000);
+      const timer = setTimeout(() => setShowSuccess(false), 4000);
+      return () => clearTimeout(timer)
     }
-  }, [successMessage]);
+  }, [successMessage, messageTimestamp]);
 
   useEffect(() => {
     if (error) {
       setShowError(true);
-      setTimeout(() => setShowError(false), 4000);
+      const timer = setTimeout(() => setShowError(false), 5000);
+      return () => clearTimeout(timer)
     }
   }, [error]);
-  
   
   return (
     <div className="application">
